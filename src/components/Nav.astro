@@ -46,7 +46,7 @@ const langOptions: { code: Lang; label: string }[] = [
           <details class="group relative">
             <summary
               class:list={[
-                'flex cursor-pointer list-none items-center gap-1 rounded px-2 py-1.5 text-stone-600 hover:text-stone-900',
+                'flex cursor-pointer list-none items-center gap-1 rounded px-2 py-1.5 text-stone-600 hover:text-stone-900 [&::-webkit-details-marker]:hidden',
                 { 'font-semibold text-stone-900': isAboutActive },
               ]}
             >
@@ -84,7 +84,7 @@ const langOptions: { code: Lang; label: string }[] = [
       )}
 
       <details class="group relative">
-        <summary class="flex cursor-pointer list-none items-center gap-1 rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-600 hover:border-stone-400 hover:text-stone-900">
+        <summary class="flex cursor-pointer list-none items-center gap-1 rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-600 hover:border-stone-400 hover:text-stone-900 [&::-webkit-details-marker]:hidden">
           <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7.75 5.75a.75.75 0 00-1.5 0v1.5h-1.5a.75.75 0 000 1.5h1.5v1.5a.75.75 0 001.5 0v-1.5h1.5a.75.75 0 000-1.5h-1.5v-1.5zM4.06 12.5a6.5 6.5 0 0011.88 0h-2.19a.75.75 0 000 1.5h.94A6.48 6.48 0 018 15.4v-.9a.75.75 0 00-1.5 0v.9a6.48 6.48 0 01-2.19-1.9h.94a.75.75 0 000-1.5H4.06z" clip-rule="evenodd" />
           </svg>

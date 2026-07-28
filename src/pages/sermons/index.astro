@@ -2,8 +2,13 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ExampleNotice from '../../components/ExampleNotice.astro';
+import { getYoutubeEmbedUrl } from '../../lib/youtube';
 
-const sermons = (await getCollection('sermons')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const sermons = (await getCollection('sermons')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' });
 ---
 
 <BaseLayout
@@ -11,7 +16,7 @@ const sermons = (await getCollection('sermons')).sort((a, b) => a.data.title.loc
   title="Sermons"
   description="Sermons from Bethesda Baptist Church, Kathmandu."
 >
-  <section class="mx-auto max-w-3xl px-4 py-14">
+  <section class="mx-auto max-w-2xl px-4 py-14">
     <h1 class="text-3xl font-bold text-stone-900">Sermons</h1>
 
     {sermons.length === 0 ? (
@@ -23,22 +28,35 @@ const sermons = (await getCollection('sermons')).sort((a, b) => a.data.title.loc
       <>
         <div class="mt-6">
           <ExampleNotice lang="en" variant="banner">
-            <p>
-              These are example sermon listings showing how messages will be
-              organized — not real recordings yet.
-            </p>
+            <p>These are example listings — real sermon videos will replace them soon.</p>
           </ExampleNotice>
         </div>
-        <ul class="mt-6 space-y-4">
-          {sermons.map((sermon) => (
-            <li class="rounded border border-stone-200 p-4">
-              {sermon.data.series && (
-                <p class="text-xs font-medium uppercase tracking-wide text-stone-400">{sermon.data.series}</p>
-              )}
-              <h2 class="mt-1 font-semibold text-stone-900">{sermon.data.title}</h2>
-              {sermon.data.description && <p class="mt-1 text-sm text-stone-600">{sermon.data.description}</p>}
-            </li>
-          ))}
+        <ul class="mt-6 space-y-10">
+          {sermons.map((sermon) => {
+            const embedUrl = sermon.data.youtubeUrl ? getYoutubeEmbedUrl(sermon.data.youtubeUrl) : null;
+            return (
+              <li>
+                <h2 class="font-semibold text-stone-900">{sermon.data.title}</h2>
+                <p class="text-sm text-stone-500">{dateFormatter.format(sermon.data.date)}</p>
+                <div class="mt-3 aspect-video overflow-hidden rounded border border-stone-200 bg-stone-100">
+                  {embedUrl ? (
+                    <iframe
+                      class="h-full w-full"
+                      src={embedUrl}
+                      title={sermon.data.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  ) : (
+                    <div class="flex h-full w-full items-center justify-center text-sm text-stone-400">
+                      Video coming soon
+                    </div>
+                  )}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </>
     )}
