@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { CONTACT } from '../../../lib/site';
+---
+
+<BaseLayout
+  lang="ne"
+  title="दान"
+  description="बेथेस्दा ब्याप्टिष्ट चर्चको सेवाकार्यलाई सहयोग गर्नुहोस्।"
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">दान</h1>
+
+    <div class="mt-8 rounded border border-dashed border-stone-300 p-5 text-stone-600">
+      <p class="font-medium text-stone-800">अनलाइन दान चाँडै उपलब्ध हुनेछ</p>
+      <p class="mt-1 text-sm">
+        हाल, कृपया <a href={`mailto:${CONTACT.email}`} class="underline">{CONTACT.email}</a> मा सम्पर्क गर्नुहोस्।
+      </p>
+    </div>
+  </section>
+</BaseLayout>

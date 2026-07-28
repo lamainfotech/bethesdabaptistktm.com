@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT } from '../../lib/site';
+
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT.mapsQuery)}`;
+---
+
+<BaseLayout
+  lang="en"
+  title="Contact"
+  description="Contact Bethesda Baptist Church, Kathmandu."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">Contact Us</h1>
+
+    <dl class="mt-8 space-y-4 text-stone-700">
+      <div>
+        <dt class="text-sm font-semibold text-stone-500">Address</dt>
+        <dd>{CONTACT.address}</dd>
+        <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="text-sm underline">View on map &rarr;</a>
+      </div>
+      <div>
+        <dt class="text-sm font-semibold text-stone-500">Phone</dt>
+        {CONTACT.phones.map((phone) => <dd><a href={`tel:${phone.replace(/\s|-/g, '')}`} class="hover:underline">{phone}</a></dd>)}
+      </div>
+      <div>
+        <dt class="text-sm font-semibold text-stone-500">Email</dt>
+        <dd><a href={`mailto:${CONTACT.email}`} class="hover:underline">{CONTACT.email}</a></dd>
+      </div>
+    </dl>
+  </section>
+</BaseLayout>

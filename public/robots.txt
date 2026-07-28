@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bethesdabaptistktm.com/sitemap-index.xml

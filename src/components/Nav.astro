@@ -1,0 +1,48 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { NAV } from '../lib/site';
+import { useTranslations, type Lang } from '../lib/ui';
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const t = useTranslations(lang);
+
+const otherLang: Lang = lang === 'en' ? 'ne' : 'en';
+// Strip the "/ne" prefix (English is the unprefixed default locale) to get the locale-agnostic slug.
+const unprefixedPath = lang === 'ne' ? currentPath.replace(/^\/ne/, '') || '/' : currentPath;
+const switchHref = getRelativeLocaleUrl(otherLang, unprefixedPath === '/' ? '' : unprefixedPath.replace(/^\//, ''));
+---
+
+<header class="border-b border-stone-200 bg-white">
+  <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
+    <a href={getRelativeLocaleUrl(lang, '')} class="text-lg font-semibold tracking-tight text-stone-900">
+      Bethesda Baptist Church
+    </a>
+
+    <nav aria-label="Primary" class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+      {NAV.map((item) => {
+        const href = getRelativeLocaleUrl(lang, item.path === '/' ? '' : item.path.replace(/^\//, ''));
+        const isActive = currentPath === href || currentPath === href.replace(/\/$/, '');
+        return (
+          <a
+            href={href}
+            aria-current={isActive ? 'page' : undefined}
+            class:list={[
+              'text-stone-600 hover:text-stone-900',
+              { 'font-semibold text-stone-900': isActive },
+            ]}
+          >
+            {t.nav[item.key]}
+          </a>
+        );
+      })}
+      <a href={switchHref} class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-600 hover:border-stone-400 hover:text-stone-900">
+        {lang === 'en' ? 'नेपाली' : 'English'}
+      </a>
+    </nav>
+  </div>
+</header>

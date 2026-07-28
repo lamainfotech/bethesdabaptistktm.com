@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const ministries = (await getCollection('ministries')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  lang="en"
+  title="Ministries"
+  description="Ministries of Bethesda Baptist Church, Kathmandu."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">Ministries</h1>
+    <p class="mt-4 text-sm text-stone-500">
+      Below are example ministry areas — final names, schedules, and leaders will be confirmed soon.
+    </p>
+
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+      {ministries.map((ministry) => (
+        <li class="rounded border border-stone-200 p-5">
+          <h2 class="font-semibold text-stone-900">{ministry.data.title}</h2>
+          <p class="mt-1 text-sm text-stone-600">{ministry.data.summary}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

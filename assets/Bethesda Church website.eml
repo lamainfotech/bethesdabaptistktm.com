@@ -1,0 +1,130 @@
+Delivered-To: khagenboy@gmail.com
+Received: by 2002:a05:7109:c009:b0:57f:948c:7a93 with SMTP id tx9csp1228288gdc;
+        Sat, 25 Jul 2026 20:29:20 -0700 (PDT)
+X-Received: by 2002:a17:90b:2690:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-38f294ec912mr3634823a91.16.1785036560139;
+        Sat, 25 Jul 2026 20:29:20 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1785036560; cv=pass;
+        d=google.com; s=arc-20260327;
+        b=ohjChFg2NIg8ZwlMFyiKjJabbjwXY/ez1jyKNgyv9T7MVKzgJ+6bZvZaTe9/DD75iy
+         Fly8J/88RTuhS207y2UnqFFx6izQUyBt6Dt8xyLRL3gUvMgWRZWjv5gh/KSB57b4DMy+
+         TkvVD2ypACUz6RneP21caua6ZfJ37b78REo40ixFDJJn7EQKJ1Di+wDrWbeHUYn80QjR
+         gBKZMuMAwJYFoogkSdnrE1jIPzRfLmNWtYsbTBsvBzL8kKn/tLOrmpro8PV7HAFBg+FK
+         UAez/B8dWudTpcR2vugOEsOTxRPjzJKogqYjIAetVrYhwJ3RsCeQGPNyr55+g4WqGF6z
+         a60Q==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=xdZhrKcJhZ8scQoo1iUSZye+9YhsbaV9hS5Vpzivq9k=;
+        fh=tCpe4jT+Fwdbv+rpjEomt4QhFxnFS2Vi+eMR4eCR1b8=;
+        b=dQ4E6FIalkJ6Bf3PAhAEUzuTG8L6RknTpTGwSRlL9smpPx4ah7U3ZJgM53u66m4JRm
+         7qWpEcpz8W0vkplPJLHqrG7RpCcK5mmC0PTFb79wz/hj0l33JGwss06qQFs7pPm9c+kH
+         ksiiIk5VRgvBybNBo3080iz1vdtOhJhfHgO0ADu4z5cROP5APavmFNKUKc1L0bD+bzaL
+         GqCH1vplzxdoXBJHo3IcSYSsnLPmwIQmBeg0y6CnUN4guBxCOE6tpgdncWuCj1L+xGK/
+         AdVZJzniNN6VYqUZKYi0Sz6KqF6ly+77/RV/P0bEL9Gr9BIzy2UfUFXS69KpJGRIa2wb
+         nxXg==;
+        dara=google.com
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20251104 header.b=e3eA+e2O;
+       arc=pass (i=1);
+       spf=pass (google.com: domain of harichhetri2@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=harichhetri2@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=pass header.i=@gmail.com
+Return-Path: <harichhetri2@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id 98e67ed59e1d1-38f29536453sor1306146a91.8.2026.07.25.20.29.19
+        for <khagenboy@gmail.com>
+        (Google Transport Security);
+        Sat, 25 Jul 2026 20:29:20 -0700 (PDT)
+Received-SPF: pass (google.com: domain of harichhetri2@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20251104 header.b=e3eA+e2O;
+       arc=pass (i=1);
+       spf=pass (google.com: domain of harichhetri2@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=harichhetri2@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=pass header.i=@gmail.com
+ARC-Seal: i=1; a=rsa-sha256; t=1785036559; cv=none;
+        d=google.com; s=arc-20260327;
+        b=K7pNgNOHVLJsT5Ak+dlNWkpAYuqOBEy+YvurYaAmHrBZKoueTjWOSjkD7ALfU88xOF
+         2rrvPWx7lxLcopZIJmeFW264f8aiNJhjJcFEtWDSS3NHrwaL4jTl9dgfdX2TU/JIdAAg
+         o08tjugSOERrFCEaC1TLp17+kMDTxt30Z/7m499CGSAeXClvVF8FFezyTocIwgxDqq/V
+         yR1mertgf8H3yp598aB5GEAYFF1wCMCxgNIU+yFXQu6h53HFEMc5CVbqeisOGwZgiexG
+         9dma0BSwEWDC9migDB7okigKsip8EGprm88GzJY0hS3gvF8Xv5KN9gbM6JhKC+RzugaN
+         fTjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=xdZhrKcJhZ8scQoo1iUSZye+9YhsbaV9hS5Vpzivq9k=;
+        fh=tCpe4jT+Fwdbv+rpjEomt4QhFxnFS2Vi+eMR4eCR1b8=;
+        b=nlD4RpcdESWhrQlcl6k3jZ6dm0Z6vbkEbT7euuoozhNDwImN4w+moA7V4uHeCYGfCI
+         4X6PE4rborMx4bO6lLm4LGp3F0QnyT+lyKhzKU0sTHreEiAYkFl3aTv4BYQpeNNgAZvL
+         kJz5fPEktn0Jltpqnu4OrzFSPo15Uu/IzG59NG/jNLmhswVbDohrNECzShJW0+23xhCv
+         U2etR/y4iQfkVhaUC2hzlyyEWZKM6mFTZJngGCbwXi2OalAibXYR1zu+AtpXnqSD4Dxv
+         nBk9p9HawYTxj7JBwmbR0tSner39YT+u3PhBYWUJSqVPgiiyGjGkxGgS6mgXtze9bTjJ
+         /20w==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785036559; x=1785641359; dara=google.com;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=xdZhrKcJhZ8scQoo1iUSZye+9YhsbaV9hS5Vpzivq9k=;
+        b=e3eA+e2OC4NHs4ZjKsHYUjCggFGxkj9tIRyzzC86nAjU2TmAOywpxlaPP7RU1XvpY5
+         p1279QevbYmzcwRCOdzh/2Fcotg2+3c4snzfrIm1a2erT4ZETooLLwYCxXnnxsI1UxDD
+         uWu1/fXZnQnTybvM6TRTFoMkL8pX94/lUDYCJG6D2ybyConf67TrAATeicDiKsNXaGt5
+         FiCgVLZ3cBHD3hNG+v1/jAoQejSUmHCEXyRiBNTwFA+dnPI36IoFtc419suQTJT8Wsok
+         5ImvBYVSH1VbO5zMrbNk0NNXY9kVNAsVRsJ1MXyeCwjPC6yAfOCFx2HqHtQRj2E00xkr
+         iw0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785036559; x=1785641359;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xdZhrKcJhZ8scQoo1iUSZye+9YhsbaV9hS5Vpzivq9k=;
+        b=DeAL/b5oW9J+7bEObRdIaRwWzcupCMLYkNor5K3tCf39moFKCWkNXn+KgcEGZ++ytX
+         rAcTEY9i5A+czNUyvEKFgXqQgZaI28D7tt8tBYYpKVpaAZC6t6SvvuNo1ejJegs5oBjg
+         9N3ogSIsocEFetieffwG1bKy+wrgwU4uQ6jyCIylDj7TLfsQ79pS+67Yg+FNGu6v+bA1
+         ssNLQG50dyAdMv/Wnzh7I3hBqMCB1/5aFJmF5w52McXaxOMoCS3RxnjUO5bvWe1+ExM5
+         Bj8Mrb4FN/v0r1WZk+8yXbcg8N5Vcc0CFRoxzclZrmPvfIMInCs/AxaBisEadLmuuxDd
+         2yJA==
+X-Gm-Message-State: AOJu0Yxq34QTgVYdJZWxVKAuwQSDeAFooT1fkYN/4qOa/dlEKc3yqaCd
+	Ul+tdBKX9CXj8hiFzfCKSJrEKugPXvc64OJrbEzx5yPyeiQjy8QiKRY0C3s5tswlkdyFKdwAUiq
+	L+t4x1a1w2p+kQM8FN0kTJ8ThSPseXMG7QQ==
+X-Gm-Gg: AR+sD12w857RG8YARRSJwITt+dM99ZliwSpFFpswVNsL5/sZ1YbZIerCqwSUryQEuz8
+	vDqcFO2t5zp1qRu/+0eIPbh5ZO+5W9Z5AwLpSxl4yTvJveMn+vNSoflkPeOD1T6HICpjv6OJmRN
+	0xslB+CHWr0gqRPyVkRbpwy87laoMtzEsvJaVNwcsX+7FsEP+SVt/dhtUqJ2ngZHCUE+XuXGOVB
+	NNBIA6y/PmrzgAg7tbe6UHjudusz31tWqYGFM2na/UDB8K1Jw1Lt53UiJK9bUN+jMZhCxdlpP1C
+	9no+kGzAEKoaD3b35Pyt
+X-Received: by 2002:a05:6300:6708:b0:3c4:3672:ba6 with SMTP id
+ adf61e73a8af0-3c67da72a28mr3786186637.22.1785036559590; Sat, 25 Jul 2026
+ 20:29:19 -0700 (PDT)
+MIME-Version: 1.0
+From: Hari Karki <harichhetri2@gmail.com>
+Date: Sun, 26 Jul 2026 09:14:08 +0545
+X-Gm-Features: AUfX_mySd_ueqwXtLasv9o2TtAhyYAHhzw7_8QLtNpgmPR-nfXcI43UtL18qjSY
+Message-ID: <CAHehHV6cpanVpY18M39Xw+DmSLbx7XVWNButB54f55XHQ7hS4w@mail.gmail.com>
+Subject: Bethesda Church website
+To: "khagenboy@gmail.com" <khagenboy@gmail.com>
+Content-Type: multipart/alternative; boundary="0000000000000ba9d506577b3610"
+
+--0000000000000ba9d506577b3610
+Content-Type: text/plain; charset="UTF-8"
+
+Jay Messiah Bhai,
+
+We want your help for our church website.
+
+
+
+Hari KC
+Pastor Bethes-da Church
+Kathmandu, Nepal
+
+--0000000000000ba9d506577b3610
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Jay Messiah Bhai,=C2=A0</div><div dir=3D"auto"><br><=
+/div><div dir=3D"auto">We want your help for our church website.</div><div>=
+<br></div><div data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><br=
+></div><div><br></div><div>Hari KC</div><div>Pastor Bethes-da Church</div><=
+div>Kathmandu, Nepal</div><div><br></div></div></div></div>
+
+--0000000000000ba9d506577b3610--

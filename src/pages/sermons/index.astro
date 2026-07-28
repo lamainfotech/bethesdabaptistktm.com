@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const sermons = await getCollection('sermons');
+---
+
+<BaseLayout
+  lang="en"
+  title="Sermons"
+  description="Sermons from Bethesda Baptist Church, Kathmandu."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">Sermons</h1>
+
+    {sermons.length === 0 ? (
+      <div class="mt-8 rounded border border-dashed border-stone-300 p-5 text-stone-600">
+        <p class="font-medium text-stone-800">Sermons coming soon</p>
+        <p class="mt-1 text-sm">We're setting up recordings for past and future messages. Check back soon.</p>
+      </div>
+    ) : (
+      <ul class="mt-8 space-y-4">
+        {sermons.map((sermon) => (
+          <li class="rounded border border-stone-200 p-4">
+            <h2 class="font-semibold text-stone-900">{sermon.data.title}</h2>
+            {sermon.data.speaker && <p class="text-sm text-stone-600">{sermon.data.speaker}</p>}
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

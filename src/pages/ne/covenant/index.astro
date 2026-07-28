@@ -1,0 +1,22 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TranslationNotice from '../../../components/TranslationNotice.astro';
+
+const entry = await getEntry('covenant', 'ne');
+const { Content } = await render(entry!);
+---
+
+<BaseLayout
+  lang="ne"
+  title="चर्च करार"
+  description="बेथेस्दा ब्याप्टिष्ट चर्चको चर्च करार।"
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">चर्च करार</h1>
+    <div class="prose prose-stone mt-6 max-w-none">
+      <Content />
+    </div>
+    {entry?.data.translationPending && <TranslationNotice enPath="/covenant/" />}
+  </section>
+</BaseLayout>

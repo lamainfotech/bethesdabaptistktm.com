@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { CONTACT } from '../../../lib/site';
+
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT.mapsQuery)}`;
+---
+
+<BaseLayout
+  lang="ne"
+  title="आराधना समय र ठेगाना"
+  description="बेथेस्दा ब्याप्टिष्ट चर्चको आराधना समय र ठेगाना।"
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">आराधना समय र ठेगाना</h1>
+
+    <div class="mt-8 rounded border border-dashed border-stone-300 p-5 text-stone-600">
+      <p class="font-medium text-stone-800">आराधना समय चाँडै घोषणा गरिनेछ</p>
+    </div>
+
+    <h2 class="mt-10 text-lg font-semibold text-stone-900">ठेगाना</h2>
+    <p class="mt-2 text-stone-700">{CONTACT.address}</p>
+    <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-sm underline">
+      नक्सामा हेर्नुहोस् &rarr;
+    </a>
+  </section>
+</BaseLayout>

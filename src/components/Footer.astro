@@ -1,0 +1,25 @@
+---
+import { CONTACT } from '../lib/site';
+import { useTranslations, type Lang } from '../lib/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-stone-200 bg-stone-50">
+  <div class="mx-auto max-w-5xl px-4 py-10 text-sm text-stone-600">
+    <p class="font-semibold text-stone-900">Bethesda Baptist Church</p>
+    <p>{t.common.footerTagline}</p>
+    <p class="mt-3">{CONTACT.address}</p>
+    <p>
+      {CONTACT.phones.join(' / ')} &middot;
+      <a href={`mailto:${CONTACT.email}`} class="underline hover:text-stone-900">{CONTACT.email}</a>
+    </p>
+    <p class="mt-6 text-xs text-stone-400">&copy; {year} Bethesda Baptist Church, Kathmandu.</p>
+  </div>
+</footer>

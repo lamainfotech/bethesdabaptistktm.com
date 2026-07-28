@@ -1,0 +1,21 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const entry = await getEntry('faith', 'en');
+const { Content } = await render(entry!);
+---
+
+<BaseLayout
+  lang="en"
+  title="Statement of Faith"
+  description="The Statement of Faith of Bethesda Baptist Church, Kathmandu."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">Statement of Faith</h1>
+    <div class="prose prose-stone mt-6 max-w-none prose-h2:text-lg prose-h2:font-semibold">
+      <Content />
+    </div>
+    <a href="/covenant/" class="mt-10 inline-block text-sm underline">Read our Church Covenant &rarr;</a>
+  </section>
+</BaseLayout>

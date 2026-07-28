@@ -1,0 +1,18 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../lib/ui';
+
+interface Props {
+  enPath: string;
+}
+
+const { enPath } = Astro.props;
+const t = useTranslations('ne');
+const enHref = getRelativeLocaleUrl('en', enPath.replace(/^\//, ''));
+---
+
+<div class="mx-auto mt-6 max-w-3xl rounded border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+  <p class="font-semibold">{t.common.translationNoticeTitle}</p>
+  <p>{t.common.translationNoticeBody}</p>
+  <a href={enHref} class="mt-1 inline-block underline">{t.common.viewInEnglish}</a>
+</div>

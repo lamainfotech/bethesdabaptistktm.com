@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT } from '../lib/site';
+---
+
+<BaseLayout
+  lang="en"
+  title="Home"
+  description="Bethesda Baptist Church is an independent Baptist congregation in Dhumbarahi, Kathmandu, gathered around the Word of God."
+>
+  <section class="bg-stone-900 py-20 text-center text-white">
+    <div class="mx-auto max-w-2xl px-4">
+      <h1 class="text-3xl font-bold sm:text-4xl">Bethesda Baptist Church</h1>
+      <p class="mt-4 text-stone-300">
+        An independent Baptist congregation in Kathmandu, Nepal, gathered around the
+        authority of God's Word.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/visit/" class="rounded bg-white px-5 py-2.5 font-medium text-stone-900 hover:bg-stone-100">
+          Plan a Visit
+        </a>
+        <a href="/about/" class="rounded border border-white/40 px-5 py-2.5 font-medium text-white hover:bg-white/10">
+          About Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-14">
+    <blockquote class="mx-auto max-w-2xl text-center text-lg italic text-stone-700">
+      "We believe that the Bible, consisting of the Old and New Testaments, is the
+      inspired, infallible, and final authority for faith and life."
+      <footer class="mt-2 text-sm not-italic text-stone-500">— from our Statement of Faith</footer>
+    </blockquote>
+  </section>
+
+  <section class="border-t border-stone-200 bg-stone-50 py-14">
+    <div class="mx-auto grid max-w-5xl gap-8 px-4 sm:grid-cols-3">
+      <div>
+        <h2 class="font-semibold text-stone-900">Service Times</h2>
+        <p class="mt-2 text-sm text-stone-600">To be announced — check our Service Times page for updates.</p>
+        <a href="/visit/" class="mt-2 inline-block text-sm underline">Service times &amp; location</a>
+      </div>
+      <div>
+        <h2 class="font-semibold text-stone-900">Location</h2>
+        <p class="mt-2 text-sm text-stone-600">{CONTACT.address}</p>
+        <a href="/contact/" class="mt-2 inline-block text-sm underline">Get directions</a>
+      </div>
+      <div>
+        <h2 class="font-semibold text-stone-900">What We Believe</h2>
+        <p class="mt-2 text-sm text-stone-600">Read our Statement of Faith and Church Covenant.</p>
+        <a href="/beliefs/" class="mt-2 inline-block text-sm underline">Statement of Faith</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

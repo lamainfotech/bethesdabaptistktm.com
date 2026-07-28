@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TranslationNotice from '../../../components/TranslationNotice.astro';
+---
+
+<BaseLayout
+  lang="ne"
+  title="हाम्रो बारे"
+  description="बेथेस्दा ब्याप्टिष्ट चर्चको बारेमा जान्नुहोस्।"
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">हाम्रो बारे</h1>
+    <TranslationNotice enPath="/about/" />
+  </section>
+</BaseLayout>

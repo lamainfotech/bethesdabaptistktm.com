@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT } from '../../lib/site';
+---
+
+<BaseLayout
+  lang="ne"
+  title="गृहपृष्ठ"
+  description="बेथेस्दा ब्याप्टिष्ट चर्च, धुम्बाराही, काठमाडौंमा रहेको एक स्वतन्त्र ब्याप्टिष्ट मण्डली हो।"
+>
+  <section class="bg-stone-900 py-20 text-center text-white">
+    <div class="mx-auto max-w-2xl px-4">
+      <h1 class="text-3xl font-bold sm:text-4xl">बेथेस्दा ब्याप्टिष्ट चर्च</h1>
+      <p class="mt-4 text-stone-300">
+        काठमाडौंमा रहेको एक स्वतन्त्र ब्याप्टिष्ट मण्डली, परमेश्वरको वचनको अधिकारमा एकत्रित।
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/ne/visit/" class="rounded bg-white px-5 py-2.5 font-medium text-stone-900 hover:bg-stone-100">
+          आराधना समय
+        </a>
+        <a href="/ne/about/" class="rounded border border-white/40 px-5 py-2.5 font-medium text-white hover:bg-white/10">
+          हाम्रो बारे
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-stone-200 bg-stone-50 py-14">
+    <div class="mx-auto grid max-w-5xl gap-8 px-4 sm:grid-cols-3">
+      <div>
+        <h2 class="font-semibold text-stone-900">आराधना समय</h2>
+        <p class="mt-2 text-sm text-stone-600">चाँडै घोषणा गरिनेछ।</p>
+      </div>
+      <div>
+        <h2 class="font-semibold text-stone-900">ठेगाना</h2>
+        <p class="mt-2 text-sm text-stone-600">{CONTACT.address}</p>
+      </div>
+      <div>
+        <h2 class="font-semibold text-stone-900">विश्वासको वक्तव्य</h2>
+        <a href="/ne/beliefs/" class="mt-2 inline-block text-sm underline">हेर्नुहोस्</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

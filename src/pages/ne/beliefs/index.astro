@@ -1,0 +1,22 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TranslationNotice from '../../../components/TranslationNotice.astro';
+
+const entry = await getEntry('faith', 'ne');
+const { Content } = await render(entry!);
+---
+
+<BaseLayout
+  lang="ne"
+  title="विश्वासको वक्तव्य"
+  description="बेथेस्दा ब्याप्टिष्ट चर्चको विश्वासको वक्तव्य।"
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">विश्वासको वक्तव्य</h1>
+    <div class="prose prose-stone mt-6 max-w-none">
+      <Content />
+    </div>
+    {entry?.data.translationPending && <TranslationNotice enPath="/beliefs/" />}
+  </section>
+</BaseLayout>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT } from '../../lib/site';
+---
+
+<BaseLayout
+  lang="en"
+  title="Giving"
+  description="Support the ministry of Bethesda Baptist Church, Kathmandu."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold text-stone-900">Giving</h1>
+
+    <blockquote class="mt-6 border-l-2 border-stone-300 pl-4 text-stone-600 italic">
+      "We covenant to give cheerfully and faithfully of our time, abilities, and
+      resources for the support of the ministry, the care of the needy, and the
+      spread of the gospel to all nations."
+      <footer class="mt-1 text-sm not-italic text-stone-500">— from our Church Covenant</footer>
+    </blockquote>
+
+    <div class="mt-8 rounded border border-dashed border-stone-300 p-5 text-stone-600">
+      <p class="font-medium text-stone-800">Online giving is coming soon</p>
+      <p class="mt-1 text-sm">
+        We're setting up a way to give online. In the meantime, please contact
+        us at <a href={`mailto:${CONTACT.email}`} class="underline">{CONTACT.email}</a> or
+        speak with the pastor to give in person.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
