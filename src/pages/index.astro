@@ -1,6 +1,14 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ExampleNotice from '../components/ExampleNotice.astro';
 import { CONTACT } from '../lib/site';
+import { MINISTRY_IMAGES } from '../lib/ministryImages';
+import heroImage from '../assets/images/hero-kathmandu.jpg';
+import visitImage from '../assets/images/about-kathmandu.jpg';
+
+const ministries = (await getCollection('ministries')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout
@@ -8,10 +16,18 @@ import { CONTACT } from '../lib/site';
   title="Home"
   description="Bethesda Baptist Church is an independent Baptist congregation in Dhumbarahi, Kathmandu, gathered around the Word of God."
 >
-  <section class="bg-stone-900 py-20 text-center text-white">
+  <section class="relative isolate overflow-hidden py-28 text-center text-white">
+    <Image
+      src={heroImage}
+      alt="View over Kathmandu valley"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+      widths={[640, 1200, 2000]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
     <div class="mx-auto max-w-2xl px-4">
       <h1 class="text-3xl font-bold sm:text-4xl">Bethesda Baptist Church</h1>
-      <p class="mt-4 text-stone-300">
+      <p class="mt-4 text-stone-200">
         An independent Baptist congregation in Kathmandu, Nepal, gathered around the
         authority of God's Word.
       </p>
@@ -19,7 +35,7 @@ import { CONTACT } from '../lib/site';
         <a href="/visit/" class="rounded bg-white px-5 py-2.5 font-medium text-stone-900 hover:bg-stone-100">
           Plan a Visit
         </a>
-        <a href="/about/" class="rounded border border-white/40 px-5 py-2.5 font-medium text-white hover:bg-white/10">
+        <a href="/about/" class="rounded border border-white/50 px-5 py-2.5 font-medium text-white hover:bg-white/10">
           About Us
         </a>
       </div>
@@ -37,20 +53,69 @@ import { CONTACT } from '../lib/site';
   <section class="border-t border-stone-200 bg-stone-50 py-14">
     <div class="mx-auto grid max-w-5xl gap-8 px-4 sm:grid-cols-3">
       <div>
-        <h2 class="font-semibold text-stone-900">Service Times</h2>
-        <p class="mt-2 text-sm text-stone-600">To be announced — check our Service Times page for updates.</p>
+        <svg class="h-6 w-6 text-stone-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" /></svg>
+        <h2 class="mt-2 font-semibold text-stone-900">Service Times</h2>
+        <p class="mt-2 text-sm text-stone-600">Sunday Worship — 10:00 AM</p>
+        <div class="mt-2"><ExampleNotice lang="en" /></div>
         <a href="/visit/" class="mt-2 inline-block text-sm underline">Service times &amp; location</a>
       </div>
       <div>
-        <h2 class="font-semibold text-stone-900">Location</h2>
+        <svg class="h-6 w-6 text-stone-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.028.014.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg>
+        <h2 class="mt-2 font-semibold text-stone-900">Location</h2>
         <p class="mt-2 text-sm text-stone-600">{CONTACT.address}</p>
         <a href="/contact/" class="mt-2 inline-block text-sm underline">Get directions</a>
       </div>
       <div>
-        <h2 class="font-semibold text-stone-900">What We Believe</h2>
+        <svg class="h-6 w-6 text-stone-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M9.5 2A1.5 1.5 0 008 3.5V4H5.5A1.5 1.5 0 004 5.5v11A1.5 1.5 0 005.5 18h9a1.5 1.5 0 001.5-1.5v-11A1.5 1.5 0 0014.5 4H12v-.5A1.5 1.5 0 0010.5 2h-1zM6 8h8v1.5H6V8zm0 3h8v1.5H6V11zm0 3h5v1.5H6V14z" /></svg>
+        <h2 class="mt-2 font-semibold text-stone-900">What We Believe</h2>
         <p class="mt-2 text-sm text-stone-600">Read our Statement of Faith and Church Covenant.</p>
         <a href="/beliefs/" class="mt-2 inline-block text-sm underline">Statement of Faith</a>
       </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 py-14">
+    <h2 class="text-center text-2xl font-bold text-stone-900">Ministries</h2>
+    <p class="mx-auto mt-2 max-w-xl text-center text-sm text-stone-500">
+      A few of the ways our congregation gathers to grow and serve together.
+    </p>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {ministries.map((ministry) => (
+        <a href="/ministries/" class="group overflow-hidden rounded border border-stone-200">
+          <Image
+            src={MINISTRY_IMAGES[ministry.id]}
+            alt=""
+            class="h-32 w-full object-cover transition-transform group-hover:scale-105"
+            widths={[300, 600]}
+            sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
+          />
+          <div class="p-4">
+            <h3 class="font-semibold text-stone-900">{ministry.data.title}</h3>
+            <p class="mt-1 text-sm text-stone-600">{ministry.data.summary}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="relative isolate overflow-hidden py-16 text-center text-white">
+    <Image
+      src={visitImage}
+      alt="Kathmandu cityscape"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+      widths={[640, 1600]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 -z-10 bg-stone-900/75"></div>
+    <div class="mx-auto max-w-xl px-4">
+      <h2 class="text-2xl font-bold">Plan Your Visit</h2>
+      <p class="mt-3 text-stone-200">
+        Whether you're new to Kathmandu or new to church, we'd love to welcome you
+        this Sunday.
+      </p>
+      <a href="/visit/" class="mt-6 inline-block rounded bg-white px-5 py-2.5 font-medium text-stone-900 hover:bg-stone-100">
+        Service Times &amp; Location
+      </a>
     </div>
   </section>
 </BaseLayout>

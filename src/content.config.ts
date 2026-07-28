@@ -25,6 +25,8 @@ const ministries = defineCollection({
   schema: z.object({
     title: z.string(),
     summary: z.string(),
+    meetingTime: z.string().optional(),
+    leader: z.string().optional(),
     placeholder: z.boolean().optional(),
     order: z.number().default(0),
   }),
@@ -34,9 +36,12 @@ const sermons = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/sermons' }),
   schema: z.object({
     title: z.string(),
+    description: z.string().optional(),
+    series: z.string().optional(),
     speaker: z.string().optional(),
     date: z.coerce.date().optional(),
     mediaUrl: z.string().optional(),
+    placeholder: z.boolean().optional(),
   }),
 });
 

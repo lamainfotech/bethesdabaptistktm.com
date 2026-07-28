@@ -1,8 +1,18 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ExampleNotice from '../../../components/ExampleNotice.astro';
 import { CONTACT } from '../../../lib/site';
+import bannerImage from '../../../assets/images/hero-kathmandu.jpg';
 
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT.mapsQuery)}`;
+const mapsEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(CONTACT.mapsQuery)}&output=embed`;
+
+const schedule = [
+  { name: 'आइतबार बाइबल अध्ययन', time: 'बिहान ९:०० बजे' },
+  { name: 'आइतबार आराधना', time: 'बिहान १०:०० बजे' },
+  { name: 'बुधबार प्रार्थना सभा', time: 'साँझ ६:०० बजे' },
+];
 ---
 
 <BaseLayout
@@ -10,17 +20,46 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
   title="आराधना समय र ठेगाना"
   description="बेथेस्दा ब्याप्टिष्ट चर्चको आराधना समय र ठेगाना।"
 >
-  <section class="mx-auto max-w-3xl px-4 py-14">
-    <h1 class="text-3xl font-bold text-stone-900">आराधना समय र ठेगाना</h1>
+  <section class="relative isolate overflow-hidden py-16 text-center text-white">
+    <Image
+      src={bannerImage}
+      alt="काठमाडौं उपत्यकाको दृश्य"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+      widths={[640, 1600]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <h1 class="text-3xl font-bold sm:text-4xl">आराधना समय र ठेगाना</h1>
+  </section>
 
-    <div class="mt-8 rounded border border-dashed border-stone-300 p-5 text-stone-600">
-      <p class="font-medium text-stone-800">आराधना समय चाँडै घोषणा गरिनेछ</p>
-    </div>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h2 class="text-lg font-semibold text-stone-900">साप्ताहिक तालिका</h2>
+    <ExampleNotice lang="ne" variant="banner">
+      <ul class="mt-2 space-y-1">
+        {schedule.map((item) => (
+          <li class="flex justify-between border-b border-sky-200 py-1 last:border-0">
+            <span>{item.name}</span>
+            <span class="font-medium">{item.time}</span>
+          </li>
+        ))}
+      </ul>
+    </ExampleNotice>
 
     <h2 class="mt-10 text-lg font-semibold text-stone-900">ठेगाना</h2>
     <p class="mt-2 text-stone-700">{CONTACT.address}</p>
     <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-sm underline">
       नक्सामा हेर्नुहोस् &rarr;
     </a>
+    <div class="mt-4 overflow-hidden rounded border border-stone-200">
+      <iframe
+        src={mapsEmbedSrc}
+        width="100%"
+        height="320"
+        style="border:0"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="बेथेस्दा ब्याप्टिष्ट चर्चको स्थान देखाउने नक्सा"
+      ></iframe>
+    </div>
   </section>
 </BaseLayout>

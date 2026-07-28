@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ExampleNotice from '../../../components/ExampleNotice.astro';
 import TranslationNotice from '../../../components/TranslationNotice.astro';
+import heroImage from '../../../assets/images/about-kathmandu.jpg';
 ---
 
 <BaseLayout
@@ -8,8 +11,45 @@ import TranslationNotice from '../../../components/TranslationNotice.astro';
   title="हाम्रो बारे"
   description="बेथेस्दा ब्याप्टिष्ट चर्चको बारेमा जान्नुहोस्।"
 >
+  <section class="relative isolate overflow-hidden py-20 text-center text-white">
+    <Image
+      src={heroImage}
+      alt="काठमाडौं सहर दृश्य"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+      widths={[640, 1600]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <h1 class="text-3xl font-bold sm:text-4xl">हाम्रो बारे</h1>
+  </section>
+
   <section class="mx-auto max-w-3xl px-4 py-14">
-    <h1 class="text-3xl font-bold text-stone-900">हाम्रो बारे</h1>
+    <h2 class="text-xl font-semibold text-stone-900">हाम्रो कथा</h2>
     <TranslationNotice enPath="/about/" />
+
+    <h2 class="mt-10 text-xl font-semibold text-stone-900">नेतृत्व</h2>
+    <div class="mt-4 flex flex-col gap-4 rounded border border-stone-200 p-5 sm:flex-row sm:items-start">
+      <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-400">
+        <svg class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.24-8 5v1a1 1 0 001 1h14a1 1 0 001-1v-1c0-2.76-3.58-5-8-5z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-semibold text-stone-900">पास्टर हरि केसी</h3>
+        <p class="mt-1 text-sm text-stone-600">
+          पास्टर हरि केसीले बेथेस्दा ब्याप्टिष्ट चर्चको नेतृत्व गर्नुहुन्छ।
+        </p>
+        <div class="mt-2"><ExampleNotice lang="ne" /></div>
+      </div>
+    </div>
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      <a href="/ne/beliefs/" class="rounded border border-stone-200 p-5 hover:border-stone-400">
+        <h2 class="font-semibold text-stone-900">विश्वासको वक्तव्य</h2>
+      </a>
+      <a href="/ne/covenant/" class="rounded border border-stone-200 p-5 hover:border-stone-400">
+        <h2 class="font-semibold text-stone-900">चर्च करार</h2>
+      </a>
+    </div>
   </section>
 </BaseLayout>

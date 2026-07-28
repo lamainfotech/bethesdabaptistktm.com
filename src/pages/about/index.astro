@@ -1,5 +1,27 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExampleNotice from '../../components/ExampleNotice.astro';
+import heroImage from '../../assets/images/about-kathmandu.jpg';
+
+const values = [
+  {
+    title: 'Biblically Rooted',
+    body: "Everything we do is anchored in the authority and sufficiency of Scripture — see our Statement of Faith.",
+  },
+  {
+    title: 'A Mature Community',
+    body: 'We grow together as believers through worship, discipleship, and mutual encouragement in the local church.',
+  },
+  {
+    title: 'Character & Compassion',
+    body: 'We seek to reflect Christ in how we treat one another and our neighbors, in Kathmandu and beyond.',
+  },
+  {
+    title: 'Courage & Creativity',
+    body: 'We want to reach people outside our community — locally and globally — with boldness and fresh approaches to the unchanging gospel.',
+  },
+];
 ---
 
 <BaseLayout
@@ -7,16 +29,60 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   title="About Us"
   description="Learn about Bethesda Baptist Church, an independent Baptist congregation in Kathmandu, Nepal."
 >
-  <section class="mx-auto max-w-3xl px-4 py-14">
-    <h1 class="text-3xl font-bold text-stone-900">About Us</h1>
+  <section class="relative isolate overflow-hidden py-20 text-center text-white">
+    <Image
+      src={heroImage}
+      alt="Kathmandu cityscape"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+      widths={[640, 1600]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <h1 class="text-3xl font-bold sm:text-4xl">About Us</h1>
+  </section>
 
-    <p class="mt-6 text-stone-700">
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h2 class="text-xl font-semibold text-stone-900">Our Story</h2>
+    <p class="mt-4 text-stone-700">
       Bethesda Baptist Church is an independent, autonomous congregation in
       Kathmandu, Nepal, subject only to Jesus Christ as the Head of the Church.
+      We are free to cooperate with other Biblical, like-minded churches, while
+      holding firmly to the authority of God's Word as our final rule for faith
+      and life.
+    </p>
+
+    <h2 class="mt-10 text-xl font-semibold text-stone-900">Our Mission</h2>
+    <p class="mt-4 text-stone-700">
       Our aim is to be biblically rooted, mature in a local community of
       believers, and to seek those outside that community — both locally and
       globally — with character, compassion, courage, and creativity.
     </p>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2">
+      {values.map((value) => (
+        <div class="rounded border border-stone-200 p-5">
+          <h3 class="font-semibold text-stone-900">{value.title}</h3>
+          <p class="mt-1 text-sm text-stone-600">{value.body}</p>
+        </div>
+      ))}
+    </div>
+
+    <h2 class="mt-10 text-xl font-semibold text-stone-900">Leadership</h2>
+    <div class="mt-4 flex flex-col gap-4 rounded border border-stone-200 p-5 sm:flex-row sm:items-start">
+      <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-400">
+        <svg class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.24-8 5v1a1 1 0 001 1h14a1 1 0 001-1v-1c0-2.76-3.58-5-8-5z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-semibold text-stone-900">Pastor Hari KC</h3>
+        <p class="mt-1 text-sm text-stone-600">
+          Pastor Hari KC leads Bethesda Baptist Church, shepherding the
+          congregation through the preaching of God's Word and the care of
+          the flock.
+        </p>
+        <div class="mt-2"><ExampleNotice lang="en" /></div>
+      </div>
+    </div>
 
     <div class="mt-10 grid gap-6 sm:grid-cols-2">
       <a href="/beliefs/" class="rounded border border-stone-200 p-5 hover:border-stone-400">
@@ -27,11 +93,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <h2 class="font-semibold text-stone-900">Church Covenant</h2>
         <p class="mt-1 text-sm text-stone-600">Our shared commitments to God and to one another as a congregation.</p>
       </a>
-    </div>
-
-    <div class="mt-12 rounded border border-dashed border-stone-300 p-5 text-sm text-stone-500">
-      <p class="font-medium text-stone-700">Coming soon</p>
-      <p class="mt-1">Pastor and leadership bios and photos will be added here.</p>
     </div>
   </section>
 </BaseLayout>

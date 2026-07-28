@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { CONTACT } from '../../../lib/site';
 
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT.mapsQuery)}`;
+const mapsEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(CONTACT.mapsQuery)}&output=embed`;
 ---
 
 <BaseLayout
@@ -13,20 +14,54 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
   <section class="mx-auto max-w-3xl px-4 py-14">
     <h1 class="text-3xl font-bold text-stone-900">सम्पर्क</h1>
 
-    <dl class="mt-8 space-y-4 text-stone-700">
+    <div class="mt-8 grid gap-10 sm:grid-cols-2">
       <div>
-        <dt class="text-sm font-semibold text-stone-500">ठेगाना</dt>
-        <dd>{CONTACT.address}</dd>
-        <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="text-sm underline">नक्सामा हेर्नुहोस् &rarr;</a>
+        <dl class="space-y-4 text-stone-700">
+          <div>
+            <dt class="text-sm font-semibold text-stone-500">ठेगाना</dt>
+            <dd>{CONTACT.address}</dd>
+            <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="text-sm underline">नक्सामा हेर्नुहोस् &rarr;</a>
+          </div>
+          <div>
+            <dt class="text-sm font-semibold text-stone-500">फोन</dt>
+            {CONTACT.phones.map((phone) => <dd><a href={`tel:${phone.replace(/\s|-/g, '')}`} class="hover:underline">{phone}</a></dd>)}
+          </div>
+          <div>
+            <dt class="text-sm font-semibold text-stone-500">इमेल</dt>
+            <dd><a href={`mailto:${CONTACT.email}`} class="hover:underline">{CONTACT.email}</a></dd>
+          </div>
+        </dl>
+        <div class="mt-6 overflow-hidden rounded border border-stone-200">
+          <iframe
+            src={mapsEmbedSrc}
+            width="100%"
+            height="220"
+            style="border:0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="बेथेस्दा ब्याप्टिष्ट चर्चको स्थान देखाउने नक्सा"
+          ></iframe>
+        </div>
       </div>
-      <div>
-        <dt class="text-sm font-semibold text-stone-500">फोन</dt>
-        {CONTACT.phones.map((phone) => <dd><a href={`tel:${phone.replace(/\s|-/g, '')}`} class="hover:underline">{phone}</a></dd>)}
-      </div>
-      <div>
-        <dt class="text-sm font-semibold text-stone-500">इमेल</dt>
-        <dd><a href={`mailto:${CONTACT.email}`} class="hover:underline">{CONTACT.email}</a></dd>
-      </div>
-    </dl>
+
+      <form action={`mailto:${CONTACT.email}`} method="post" enctype="text/plain" class="space-y-4">
+        <p class="text-sm text-stone-500">हामीलाई सन्देश पठाउनुहोस् — यसले तपाईंको इमेल एप खोल्नेछ।</p>
+        <div>
+          <label for="name" class="block text-sm font-medium text-stone-700">नाम</label>
+          <input id="name" name="Name" type="text" required class="mt-1 w-full rounded border border-stone-300 px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-stone-700">इमेल</label>
+          <input id="email" name="Email" type="email" required class="mt-1 w-full rounded border border-stone-300 px-3 py-2 text-sm" />
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-stone-700">सन्देश</label>
+          <textarea id="message" name="Message" rows="5" required class="mt-1 w-full rounded border border-stone-300 px-3 py-2 text-sm"></textarea>
+        </div>
+        <button type="submit" class="rounded bg-stone-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-stone-800">
+          सन्देश पठाउनुहोस्
+        </button>
+      </form>
+    </div>
   </section>
 </BaseLayout>

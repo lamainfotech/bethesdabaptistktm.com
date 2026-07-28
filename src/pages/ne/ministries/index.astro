@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ExampleNotice from '../../../components/ExampleNotice.astro';
+import { MINISTRY_IMAGES } from '../../../lib/ministryImages';
 
 const ministries = (await getCollection('ministries')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -10,15 +13,25 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
   title="सेवाहरू"
   description="बेथेस्दा ब्याप्टिष्ट चर्चका सेवाहरू।"
 >
-  <section class="mx-auto max-w-3xl px-4 py-14">
+  <section class="mx-auto max-w-4xl px-4 py-14">
     <h1 class="text-3xl font-bold text-stone-900">सेवाहरू</h1>
     <p class="mt-4 text-sm text-stone-500">पूर्ण नेपाली विवरण चाँडै थपिनेछ।</p>
 
-    <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+    <ul class="mt-8 grid gap-6 sm:grid-cols-2">
       {ministries.map((ministry) => (
-        <li class="rounded border border-stone-200 p-5">
-          <h2 class="font-semibold text-stone-900">{ministry.data.title}</h2>
-          <p class="mt-1 text-sm text-stone-600">{ministry.data.summary}</p>
+        <li class="overflow-hidden rounded border border-stone-200">
+          <Image
+            src={MINISTRY_IMAGES[ministry.id]}
+            alt=""
+            class="h-40 w-full object-cover"
+            widths={[400, 800]}
+            sizes="(min-width: 640px) 400px, 100vw"
+          />
+          <div class="p-5">
+            <h2 class="font-semibold text-stone-900">{ministry.data.title}</h2>
+            <p class="mt-1 text-sm text-stone-600">{ministry.data.summary}</p>
+            {ministry.data.placeholder && <div class="mt-3"><ExampleNotice lang="ne" /></div>}
+          </div>
         </li>
       ))}
     </ul>

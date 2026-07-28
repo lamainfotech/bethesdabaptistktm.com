@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { NAV } from '../lib/site';
+import { NAV, ABOUT_SUBNAV } from '../lib/site';
 import { useTranslations, type Lang } from '../lib/ui';
 
 interface Props {
@@ -11,38 +11,100 @@ interface Props {
 const { lang, currentPath } = Astro.props;
 const t = useTranslations(lang);
 
-const otherLang: Lang = lang === 'en' ? 'ne' : 'en';
 // Strip the "/ne" prefix (English is the unprefixed default locale) to get the locale-agnostic slug.
 const unprefixedPath = lang === 'ne' ? currentPath.replace(/^\/ne/, '') || '/' : currentPath;
-const switchHref = getRelativeLocaleUrl(otherLang, unprefixedPath === '/' ? '' : unprefixedPath.replace(/^\//, ''));
+
+function hrefFor(path: string) {
+  return getRelativeLocaleUrl(lang, path === '/' ? '' : path.replace(/^\//, ''));
+}
+
+function hrefForLang(targetLang: Lang) {
+  if (targetLang === lang) return currentPath;
+  return getRelativeLocaleUrl(targetLang, unprefixedPath === '/' ? '' : unprefixedPath.replace(/^\//, ''));
+}
+
+const isActive = (path: string) => {
+  const href = hrefFor(path);
+  return currentPath === href || currentPath === href.replace(/\/$/, '');
+};
+const isAboutActive = ABOUT_SUBNAV.some((item) => isActive(item.path));
+const langOptions: { code: Lang; label: string }[] = [
+  { code: 'en', label: 'English' },
+  { code: 'ne', label: 'नेपाली' },
+];
 ---
 
 <header class="border-b border-stone-200 bg-white">
   <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
-    <a href={getRelativeLocaleUrl(lang, '')} class="text-lg font-semibold tracking-tight text-stone-900">
+    <a href={hrefFor('/')} class="text-lg font-semibold tracking-tight text-stone-900">
       Bethesda Baptist Church
     </a>
 
-    <nav aria-label="Primary" class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-      {NAV.map((item) => {
-        const href = getRelativeLocaleUrl(lang, item.path === '/' ? '' : item.path.replace(/^\//, ''));
-        const isActive = currentPath === href || currentPath === href.replace(/\/$/, '');
-        return (
+    <nav aria-label="Primary" class="flex flex-wrap items-center gap-x-1 gap-y-2 text-sm">
+      {NAV.map((item) =>
+        item.path === null ? (
+          <details class="group relative">
+            <summary
+              class:list={[
+                'flex cursor-pointer list-none items-center gap-1 rounded px-2 py-1.5 text-stone-600 hover:text-stone-900',
+                { 'font-semibold text-stone-900': isAboutActive },
+              ]}
+            >
+              {t.nav.aboutMenu}
+              <svg class="h-3 w-3 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
+            </summary>
+            <div class="absolute left-0 top-full z-10 mt-1 w-56 rounded border border-stone-200 bg-white py-1 shadow-lg">
+              {ABOUT_SUBNAV.map((sub) => (
+                <a
+                  href={hrefFor(sub.path)}
+                  class:list={[
+                    'block px-3 py-2 text-stone-600 hover:bg-stone-50 hover:text-stone-900',
+                    { 'font-semibold text-stone-900': isActive(sub.path) },
+                  ]}
+                >
+                  {t.nav[sub.key]}
+                </a>
+              ))}
+            </div>
+          </details>
+        ) : (
           <a
-            href={href}
-            aria-current={isActive ? 'page' : undefined}
+            href={hrefFor(item.path)}
+            aria-current={isActive(item.path) ? 'page' : undefined}
             class:list={[
-              'text-stone-600 hover:text-stone-900',
-              { 'font-semibold text-stone-900': isActive },
+              'rounded px-2 py-1.5 text-stone-600 hover:text-stone-900',
+              { 'font-semibold text-stone-900': isActive(item.path) },
             ]}
           >
             {t.nav[item.key]}
           </a>
-        );
-      })}
-      <a href={switchHref} class="rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-600 hover:border-stone-400 hover:text-stone-900">
-        {lang === 'en' ? 'नेपाली' : 'English'}
-      </a>
+        )
+      )}
+
+      <details class="group relative">
+        <summary class="flex cursor-pointer list-none items-center gap-1 rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-600 hover:border-stone-400 hover:text-stone-900">
+          <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7.75 5.75a.75.75 0 00-1.5 0v1.5h-1.5a.75.75 0 000 1.5h1.5v1.5a.75.75 0 001.5 0v-1.5h1.5a.75.75 0 000-1.5h-1.5v-1.5zM4.06 12.5a6.5 6.5 0 0011.88 0h-2.19a.75.75 0 000 1.5h.94A6.48 6.48 0 018 15.4v-.9a.75.75 0 00-1.5 0v.9a6.48 6.48 0 01-2.19-1.9h.94a.75.75 0 000-1.5H4.06z" clip-rule="evenodd" />
+          </svg>
+          {lang === 'en' ? 'EN' : 'नेपाली'}
+        </summary>
+        <div class="absolute right-0 top-full z-10 mt-1 w-32 rounded border border-stone-200 bg-white py-1 shadow-lg">
+          {langOptions.map((opt) => (
+            <a
+              href={hrefForLang(opt.code)}
+              aria-current={lang === opt.code ? 'true' : undefined}
+              class:list={[
+                'block px-3 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900',
+                { 'font-semibold text-stone-900': lang === opt.code },
+              ]}
+            >
+              {opt.label}
+            </a>
+          ))}
+        </div>
+      </details>
     </nav>
   </div>
 </header>

@@ -1,7 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TranslationNotice from '../../../components/TranslationNotice.astro';
+import bannerImage from '../../../assets/images/open-bible.jpg';
 
 const entry = await getEntry('covenant', 'ne');
 const { Content } = await render(entry!);
@@ -12,8 +14,19 @@ const { Content } = await render(entry!);
   title="चर्च करार"
   description="बेथेस्दा ब्याप्टिष्ट चर्चको चर्च करार।"
 >
+  <section class="relative isolate overflow-hidden py-16 text-center text-white">
+    <Image
+      src={bannerImage}
+      alt="खुला बाइबल"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+      widths={[640, 1600]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <h1 class="text-3xl font-bold sm:text-4xl">चर्च करार</h1>
+  </section>
+
   <section class="mx-auto max-w-3xl px-4 py-14">
-    <h1 class="text-3xl font-bold text-stone-900">चर्च करार</h1>
     <div class="prose prose-stone mt-6 max-w-none">
       <Content />
     </div>

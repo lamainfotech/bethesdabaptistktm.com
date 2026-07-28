@@ -1,6 +1,14 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { CONTACT } from '../../../lib/site';
+import bannerImage from '../../../assets/images/giving-praying-hands.jpg';
+
+const ways = [
+  { title: 'व्यक्तिगत रूपमा', body: 'आइतबार सेवामा वा पास्टर वा डिकनलाई प्रत्यक्ष दिनुहोस्।' },
+  { title: 'बैंक स्थानान्तरण', body: 'बैंक विवरण चाँडै उपलब्ध हुनेछ।' },
+  { title: 'अनलाइन', body: 'अनलाइन दान विकल्पमा काम भइरहेको छ।' },
+];
 ---
 
 <BaseLayout
@@ -8,14 +16,30 @@ import { CONTACT } from '../../../lib/site';
   title="दान"
   description="बेथेस्दा ब्याप्टिष्ट चर्चको सेवाकार्यलाई सहयोग गर्नुहोस्।"
 >
-  <section class="mx-auto max-w-3xl px-4 py-14">
-    <h1 class="text-3xl font-bold text-stone-900">दान</h1>
+  <section class="relative isolate overflow-hidden py-16 text-center text-white">
+    <Image
+      src={bannerImage}
+      alt="प्रार्थना गर्दै भएका हातहरू"
+      class="absolute inset-0 -z-10 h-full w-full object-cover [object-position:50%_38%]"
+      widths={[640, 1200]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <h1 class="text-3xl font-bold sm:text-4xl">दान</h1>
+  </section>
 
-    <div class="mt-8 rounded border border-dashed border-stone-300 p-5 text-stone-600">
-      <p class="font-medium text-stone-800">अनलाइन दान चाँडै उपलब्ध हुनेछ</p>
-      <p class="mt-1 text-sm">
-        हाल, कृपया <a href={`mailto:${CONTACT.email}`} class="underline">{CONTACT.email}</a> मा सम्पर्क गर्नुहोस्।
-      </p>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h2 class="text-lg font-semibold text-stone-900">दान दिने तरिकाहरू</h2>
+    <div class="mt-4 grid gap-4 sm:grid-cols-3">
+      {ways.map((way) => (
+        <div class="rounded border border-stone-200 p-5">
+          <h3 class="font-semibold text-stone-900">{way.title}</h3>
+          <p class="mt-1 text-sm text-stone-600">{way.body}</p>
+        </div>
+      ))}
     </div>
+    <p class="mt-6 text-sm text-stone-500">
+      प्रश्नका लागि सम्पर्क गर्नुहोस्: <a href={`mailto:${CONTACT.email}`} class="underline">{CONTACT.email}</a>
+    </p>
   </section>
 </BaseLayout>

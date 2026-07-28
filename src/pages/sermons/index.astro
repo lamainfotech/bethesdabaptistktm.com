@@ -1,8 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExampleNotice from '../../components/ExampleNotice.astro';
 
-const sermons = await getCollection('sermons');
+const sermons = (await getCollection('sermons')).sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
 
 <BaseLayout
@@ -19,14 +20,27 @@ const sermons = await getCollection('sermons');
         <p class="mt-1 text-sm">We're setting up recordings for past and future messages. Check back soon.</p>
       </div>
     ) : (
-      <ul class="mt-8 space-y-4">
-        {sermons.map((sermon) => (
-          <li class="rounded border border-stone-200 p-4">
-            <h2 class="font-semibold text-stone-900">{sermon.data.title}</h2>
-            {sermon.data.speaker && <p class="text-sm text-stone-600">{sermon.data.speaker}</p>}
-          </li>
-        ))}
-      </ul>
+      <>
+        <div class="mt-6">
+          <ExampleNotice lang="en" variant="banner">
+            <p>
+              These are example sermon listings showing how messages will be
+              organized — not real recordings yet.
+            </p>
+          </ExampleNotice>
+        </div>
+        <ul class="mt-6 space-y-4">
+          {sermons.map((sermon) => (
+            <li class="rounded border border-stone-200 p-4">
+              {sermon.data.series && (
+                <p class="text-xs font-medium uppercase tracking-wide text-stone-400">{sermon.data.series}</p>
+              )}
+              <h2 class="mt-1 font-semibold text-stone-900">{sermon.data.title}</h2>
+              {sermon.data.description && <p class="mt-1 text-sm text-stone-600">{sermon.data.description}</p>}
+            </li>
+          ))}
+        </ul>
+      </>
     )}
   </section>
 </BaseLayout>

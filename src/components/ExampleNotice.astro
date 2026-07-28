@@ -1,0 +1,24 @@
+---
+import { useTranslations, type Lang } from '../lib/ui';
+
+interface Props {
+  lang: Lang;
+  variant?: 'pill' | 'banner';
+}
+
+const { lang, variant = 'pill' } = Astro.props;
+const t = useTranslations(lang);
+---
+
+{variant === 'pill' ? (
+  <span class="inline-block rounded-full border border-sky-300 bg-sky-50 px-2.5 py-0.5 text-xs font-medium text-sky-800">
+    {t.common.exampleLabel}
+  </span>
+) : (
+  <div class="rounded border border-sky-300 bg-sky-50 px-4 py-3 text-sm text-sky-900">
+    <p class="font-semibold">{t.common.exampleLabel}</p>
+    <div class="mt-1">
+      <slot />
+    </div>
+  </div>
+)}

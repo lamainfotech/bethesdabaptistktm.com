@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExampleNotice from '../../components/ExampleNotice.astro';
+import { MINISTRY_IMAGES } from '../../lib/ministryImages';
 
 const ministries = (await getCollection('ministries')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -10,17 +13,37 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
   title="Ministries"
   description="Ministries of Bethesda Baptist Church, Kathmandu."
 >
-  <section class="mx-auto max-w-3xl px-4 py-14">
+  <section class="mx-auto max-w-4xl px-4 py-14">
     <h1 class="text-3xl font-bold text-stone-900">Ministries</h1>
     <p class="mt-4 text-sm text-stone-500">
       Below are example ministry areas — final names, schedules, and leaders will be confirmed soon.
     </p>
 
-    <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+    <ul class="mt-8 grid gap-6 sm:grid-cols-2">
       {ministries.map((ministry) => (
-        <li class="rounded border border-stone-200 p-5">
-          <h2 class="font-semibold text-stone-900">{ministry.data.title}</h2>
-          <p class="mt-1 text-sm text-stone-600">{ministry.data.summary}</p>
+        <li class="overflow-hidden rounded border border-stone-200">
+          <Image
+            src={MINISTRY_IMAGES[ministry.id]}
+            alt=""
+            class="h-40 w-full object-cover"
+            widths={[400, 800]}
+            sizes="(min-width: 640px) 400px, 100vw"
+          />
+          <div class="p-5">
+            <h2 class="font-semibold text-stone-900">{ministry.data.title}</h2>
+            <p class="mt-1 text-sm text-stone-600">{ministry.data.summary}</p>
+            {(ministry.data.meetingTime || ministry.data.leader) && (
+              <dl class="mt-3 space-y-1 text-sm text-stone-500">
+                {ministry.data.meetingTime && (
+                  <div class="flex gap-1"><dt class="font-medium">Meets:</dt><dd>{ministry.data.meetingTime}</dd></div>
+                )}
+                {ministry.data.leader && (
+                  <div class="flex gap-1"><dt class="font-medium">Leader:</dt><dd>{ministry.data.leader}</dd></div>
+                )}
+              </dl>
+            )}
+            {ministry.data.placeholder && <div class="mt-3"><ExampleNotice lang="en" /></div>}
+          </div>
         </li>
       ))}
     </ul>
