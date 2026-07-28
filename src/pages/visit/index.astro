@@ -9,8 +9,8 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
 const mapsEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(CONTACT.mapsQuery)}&output=embed`;
 
 const schedule = [
-  { name: 'Sunday School / Bible Study', time: '9:00 AM' },
-  { name: 'Sunday Worship', time: '10:00 AM' },
+  { name: 'Saturday Bible Study', time: '9:00 AM' },
+  { name: 'Saturday Worship', time: '10:00 AM' },
   { name: 'Wednesday Prayer Meeting', time: '6:00 PM' },
 ];
 ---
@@ -28,7 +28,7 @@ const schedule = [
       widths={[640, 1600]}
       sizes="100vw"
     />
-    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
     <h1 class="text-3xl font-bold sm:text-4xl">Service Times &amp; Location</h1>
   </section>
 
@@ -57,7 +57,7 @@ const schedule = [
     <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-sm underline">
       View on Google Maps &rarr;
     </a>
-    <div class="mt-4 overflow-hidden rounded border border-stone-200">
+    <div class="mt-4 overflow-hidden rounded-lg border border-stone-200 shadow-sm">
       <iframe
         src={mapsEmbedSrc}
         width="100%"

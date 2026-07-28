@@ -21,7 +21,7 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
 
     <ul class="mt-8 grid gap-6 sm:grid-cols-2">
       {ministries.map((ministry) => (
-        <li class="overflow-hidden rounded border border-stone-200">
+        <li class="overflow-hidden rounded-lg border border-stone-200 shadow-sm">
           <Image
             src={MINISTRY_IMAGES[ministry.id]}
             alt=""

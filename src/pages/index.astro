@@ -24,7 +24,7 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
       widths={[640, 1200, 2000]}
       sizes="100vw"
     />
-    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
     <div class="mx-auto max-w-2xl px-4">
       <h1 class="text-3xl font-bold sm:text-4xl">Bethesda Baptist Church</h1>
       <p class="mt-4 text-stone-200">
@@ -32,10 +32,10 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
         authority of God's Word.
       </p>
       <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/visit/" class="rounded bg-white px-5 py-2.5 font-medium text-stone-900 hover:bg-stone-100">
+        <a href="/visit/" class="rounded-lg bg-white px-5 py-2.5 font-medium text-stone-900 shadow-sm transition-shadow hover:shadow-md hover:bg-stone-100">
           Plan a Visit
         </a>
-        <a href="/about/" class="rounded border border-white/50 px-5 py-2.5 font-medium text-white hover:bg-white/10">
+        <a href="/about/" class="rounded-lg border border-white/60 px-5 py-2.5 font-medium text-white transition-colors hover:bg-white/10">
           About Us
         </a>
       </div>
@@ -55,7 +55,7 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
       <div>
         <svg class="h-6 w-6 text-stone-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" /></svg>
         <h2 class="mt-2 font-semibold text-stone-900">Service Times</h2>
-        <p class="mt-2 text-sm text-stone-600">Sunday Worship — 10:00 AM</p>
+        <p class="mt-2 text-sm text-stone-600">Saturday Worship — 10:00 AM</p>
         <div class="mt-2"><ExampleNotice lang="en" /></div>
         <a href="/visit/" class="mt-2 inline-block text-sm underline">Service times &amp; location</a>
       </div>
@@ -81,7 +81,7 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
     </p>
     <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {ministries.map((ministry) => (
-        <a href="/ministries/" class="group overflow-hidden rounded border border-stone-200">
+        <a href="/ministries/" class="group overflow-hidden rounded-lg border border-stone-200 shadow-sm transition-shadow hover:shadow-md">
           <Image
             src={MINISTRY_IMAGES[ministry.id]}
             alt=""
@@ -106,14 +106,14 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
       widths={[640, 1600]}
       sizes="100vw"
     />
-    <div class="absolute inset-0 -z-10 bg-stone-900/75"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
     <div class="mx-auto max-w-xl px-4">
       <h2 class="text-2xl font-bold">Plan Your Visit</h2>
       <p class="mt-3 text-stone-200">
         Whether you're new to Kathmandu or new to church, we'd love to welcome you
-        this Sunday.
+        this Saturday.
       </p>
-      <a href="/visit/" class="mt-6 inline-block rounded bg-white px-5 py-2.5 font-medium text-stone-900 hover:bg-stone-100">
+      <a href="/visit/" class="mt-6 inline-block rounded-lg bg-white px-5 py-2.5 font-medium text-stone-900 shadow-sm transition-shadow hover:shadow-md hover:bg-stone-100">
         Service Times &amp; Location
       </a>
     </div>

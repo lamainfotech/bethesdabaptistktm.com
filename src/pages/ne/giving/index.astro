@@ -5,7 +5,7 @@ import { CONTACT } from '../../../lib/site';
 import bannerImage from '../../../assets/images/giving-praying-hands.jpg';
 
 const ways = [
-  { title: 'व्यक्तिगत रूपमा', body: 'आइतबार सेवामा वा पास्टर वा डिकनलाई प्रत्यक्ष दिनुहोस्।' },
+  { title: 'व्यक्तिगत रूपमा', body: 'शनिबार सेवामा वा पास्टर वा डिकनलाई प्रत्यक्ष दिनुहोस्।' },
   { title: 'बैंक स्थानान्तरण', body: 'बैंक विवरण चाँडै उपलब्ध हुनेछ।' },
   { title: 'अनलाइन', body: 'अनलाइन दान विकल्पमा काम भइरहेको छ।' },
 ];
@@ -24,7 +24,7 @@ const ways = [
       widths={[640, 1200]}
       sizes="100vw"
     />
-    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
     <h1 class="text-3xl font-bold sm:text-4xl">दान</h1>
   </section>
 
@@ -32,7 +32,7 @@ const ways = [
     <h2 class="text-lg font-semibold text-stone-900">दान दिने तरिकाहरू</h2>
     <div class="mt-4 grid gap-4 sm:grid-cols-3">
       {ways.map((way) => (
-        <div class="rounded border border-stone-200 p-5">
+        <div class="rounded-lg border border-stone-200 p-5 shadow-sm">
           <h3 class="font-semibold text-stone-900">{way.title}</h3>
           <p class="mt-1 text-sm text-stone-600">{way.body}</p>
         </div>

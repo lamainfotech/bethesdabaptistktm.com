@@ -24,17 +24,17 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
       widths={[640, 1200, 2000]}
       sizes="100vw"
     />
-    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
     <div class="mx-auto max-w-2xl px-4">
       <h1 class="text-3xl font-bold sm:text-4xl">बेथेस्दा ब्याप्टिष्ट चर्च</h1>
       <p class="mt-4 text-stone-200">
         काठमाडौंमा रहेको एक स्वतन्त्र ब्याप्टिष्ट मण्डली, परमेश्वरको वचनको अधिकारमा एकत्रित।
       </p>
       <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/ne/visit/" class="rounded bg-white px-5 py-2.5 font-medium text-stone-900 hover:bg-stone-100">
+        <a href="/ne/visit/" class="rounded-lg bg-white px-5 py-2.5 font-medium text-stone-900 shadow-sm transition-shadow hover:shadow-md hover:bg-stone-100">
           आराधना समय
         </a>
-        <a href="/ne/about/" class="rounded border border-white/50 px-5 py-2.5 font-medium text-white hover:bg-white/10">
+        <a href="/ne/about/" class="rounded-lg border border-white/60 px-5 py-2.5 font-medium text-white transition-colors hover:bg-white/10">
           हाम्रो बारे
         </a>
       </div>
@@ -45,7 +45,7 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
     <div class="mx-auto grid max-w-5xl gap-8 px-4 sm:grid-cols-3">
       <div>
         <h2 class="font-semibold text-stone-900">आराधना समय</h2>
-        <p class="mt-2 text-sm text-stone-600">आइतबार आराधना — बिहान १०:०० बजे</p>
+        <p class="mt-2 text-sm text-stone-600">शनिबार आराधना — बिहान १०:०० बजे</p>
         <div class="mt-2"><ExampleNotice lang="ne" /></div>
       </div>
       <div>
@@ -63,7 +63,7 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
     <h2 class="text-center text-2xl font-bold text-stone-900">सेवाहरू</h2>
     <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {ministries.map((ministry) => (
-        <a href="/ne/ministries/" class="group overflow-hidden rounded border border-stone-200">
+        <a href="/ne/ministries/" class="group overflow-hidden rounded-lg border border-stone-200 shadow-sm transition-shadow hover:shadow-md">
           <Image
             src={MINISTRY_IMAGES[ministry.id]}
             alt=""
@@ -88,11 +88,11 @@ const ministries = (await getCollection('ministries')).sort((a, b) => a.data.ord
       widths={[640, 1600]}
       sizes="100vw"
     />
-    <div class="absolute inset-0 -z-10 bg-stone-900/75"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
     <div class="mx-auto max-w-xl px-4">
       <h2 class="text-2xl font-bold">भ्रमणको योजना बनाउनुहोस्</h2>
-      <p class="mt-3 text-stone-200">तपाईं यस आइतबार हामीसँग जोडिनुहोस्।</p>
-      <a href="/ne/visit/" class="mt-6 inline-block rounded bg-white px-5 py-2.5 font-medium text-stone-900 hover:bg-stone-100">
+      <p class="mt-3 text-stone-200">तपाईं यस शनिबार हामीसँग जोडिनुहोस्।</p>
+      <a href="/ne/visit/" class="mt-6 inline-block rounded-lg bg-white px-5 py-2.5 font-medium text-stone-900 shadow-sm transition-shadow hover:shadow-md hover:bg-stone-100">
         आराधना समय र ठेगाना
       </a>
     </div>

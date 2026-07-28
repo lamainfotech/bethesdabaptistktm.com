@@ -9,8 +9,8 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
 const mapsEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(CONTACT.mapsQuery)}&output=embed`;
 
 const schedule = [
-  { name: 'आइतबार बाइबल अध्ययन', time: 'बिहान ९:०० बजे' },
-  { name: 'आइतबार आराधना', time: 'बिहान १०:०० बजे' },
+  { name: 'शनिबार बाइबल अध्ययन', time: 'बिहान ९:०० बजे' },
+  { name: 'शनिबार आराधना', time: 'बिहान १०:०० बजे' },
   { name: 'बुधबार प्रार्थना सभा', time: 'साँझ ६:०० बजे' },
 ];
 ---
@@ -28,7 +28,7 @@ const schedule = [
       widths={[640, 1600]}
       sizes="100vw"
     />
-    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
     <h1 class="text-3xl font-bold sm:text-4xl">आराधना समय र ठेगाना</h1>
   </section>
 
@@ -50,7 +50,7 @@ const schedule = [
     <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-sm underline">
       नक्सामा हेर्नुहोस् &rarr;
     </a>
-    <div class="mt-4 overflow-hidden rounded border border-stone-200">
+    <div class="mt-4 overflow-hidden rounded-lg border border-stone-200 shadow-sm">
       <iframe
         src={mapsEmbedSrc}
         width="100%"

@@ -20,7 +20,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' });
     <h1 class="text-3xl font-bold text-stone-900">Sermons</h1>
 
     {sermons.length === 0 ? (
-      <div class="mt-8 rounded border border-dashed border-stone-300 p-5 text-stone-600">
+      <div class="mt-8 rounded-lg border border-dashed border-stone-300 p-5 text-stone-600">
         <p class="font-medium text-stone-800">Sermons coming soon</p>
         <p class="mt-1 text-sm">We're setting up recordings for past and future messages. Check back soon.</p>
       </div>
@@ -38,7 +38,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' });
               <li>
                 <h2 class="font-semibold text-stone-900">{sermon.data.title}</h2>
                 <p class="text-sm text-stone-500">{dateFormatter.format(sermon.data.date)}</p>
-                <div class="mt-3 aspect-video overflow-hidden rounded border border-stone-200 bg-stone-100">
+                <div class="mt-3 aspect-video overflow-hidden rounded-lg border border-stone-200 bg-stone-100 shadow-sm">
                   {embedUrl ? (
                     <iframe
                       class="h-full w-full"

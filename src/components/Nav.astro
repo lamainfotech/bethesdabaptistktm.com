@@ -34,77 +34,155 @@ const langOptions: { code: Lang; label: string }[] = [
 ];
 ---
 
-<header class="border-b border-stone-200 bg-white">
-  <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
-    <a href={hrefFor('/')} class="text-lg font-semibold tracking-tight text-stone-900">
-      Bethesda Baptist Church
-    </a>
+<header class="sticky top-0 z-40 border-b border-stone-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+  <div class="mx-auto max-w-5xl px-4">
+    <!-- Desktop -->
+    <div class="hidden items-center justify-between py-4 lg:flex">
+      <a href={hrefFor('/')} class="text-lg font-semibold tracking-tight text-stone-900">
+        Bethesda Baptist Church
+      </a>
 
-    <nav aria-label="Primary" class="flex flex-wrap items-center gap-x-1 gap-y-2 text-sm">
-      {NAV.map((item) =>
-        item.path === null ? (
-          <details class="group relative">
-            <summary
+      <nav aria-label="Primary" class="flex items-center gap-x-1 text-sm">
+        {NAV.map((item) =>
+          item.path === null ? (
+            <details class="group relative">
+              <summary
+                class:list={[
+                  'flex cursor-pointer list-none items-center gap-1 rounded px-3 py-2 text-stone-600 transition-colors hover:text-stone-900 [&::-webkit-details-marker]:hidden',
+                  { 'font-semibold text-stone-900': isAboutActive },
+                ]}
+              >
+                {t.nav.aboutMenu}
+                <svg class="h-3 w-3 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                </svg>
+              </summary>
+              <div class="absolute left-0 top-full z-10 mt-1 w-56 rounded-lg border border-stone-200 bg-white py-1 shadow-lg ring-1 ring-black/5">
+                {ABOUT_SUBNAV.map((sub) => (
+                  <a
+                    href={hrefFor(sub.path)}
+                    class:list={[
+                      'block px-3 py-2 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900',
+                      { 'font-semibold text-stone-900': isActive(sub.path) },
+                    ]}
+                  >
+                    {t.nav[sub.key]}
+                  </a>
+                ))}
+              </div>
+            </details>
+          ) : (
+            <a
+              href={hrefFor(item.path)}
+              aria-current={isActive(item.path) ? 'page' : undefined}
               class:list={[
-                'flex cursor-pointer list-none items-center gap-1 rounded px-2 py-1.5 text-stone-600 hover:text-stone-900 [&::-webkit-details-marker]:hidden',
-                { 'font-semibold text-stone-900': isAboutActive },
+                'rounded px-3 py-2 text-stone-600 transition-colors hover:text-stone-900',
+                { 'font-semibold text-stone-900': isActive(item.path) },
               ]}
             >
-              {t.nav.aboutMenu}
-              <svg class="h-3 w-3 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-              </svg>
-            </summary>
-            <div class="absolute left-0 top-full z-10 mt-1 w-56 rounded border border-stone-200 bg-white py-1 shadow-lg">
-              {ABOUT_SUBNAV.map((sub) => (
-                <a
-                  href={hrefFor(sub.path)}
-                  class:list={[
-                    'block px-3 py-2 text-stone-600 hover:bg-stone-50 hover:text-stone-900',
-                    { 'font-semibold text-stone-900': isActive(sub.path) },
-                  ]}
-                >
-                  {t.nav[sub.key]}
-                </a>
-              ))}
-            </div>
-          </details>
-        ) : (
+              {t.nav[item.key]}
+            </a>
+          )
+        )}
+
+        <details class="group relative ml-2">
+          <summary class="flex cursor-pointer list-none items-center gap-1 rounded-full border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-600 transition-colors hover:border-stone-400 hover:text-stone-900 [&::-webkit-details-marker]:hidden">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7.75 5.75a.75.75 0 00-1.5 0v1.5h-1.5a.75.75 0 000 1.5h1.5v1.5a.75.75 0 001.5 0v-1.5h1.5a.75.75 0 000-1.5h-1.5v-1.5zM4.06 12.5a6.5 6.5 0 0011.88 0h-2.19a.75.75 0 000 1.5h.94A6.48 6.48 0 018 15.4v-.9a.75.75 0 00-1.5 0v.9a6.48 6.48 0 01-2.19-1.9h.94a.75.75 0 000-1.5H4.06z" clip-rule="evenodd" />
+            </svg>
+            {lang === 'en' ? 'EN' : 'नेपाली'}
+          </summary>
+          <div class="absolute right-0 top-full z-10 mt-1 w-32 rounded-lg border border-stone-200 bg-white py-1 shadow-lg ring-1 ring-black/5">
+            {langOptions.map((opt) => (
+              <a
+                href={hrefForLang(opt.code)}
+                aria-current={lang === opt.code ? 'true' : undefined}
+                class:list={[
+                  'block px-3 py-2 text-sm text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900',
+                  { 'font-semibold text-stone-900': lang === opt.code },
+                ]}
+              >
+                {opt.label}
+              </a>
+            ))}
+          </div>
+        </details>
+      </nav>
+    </div>
+
+    <!-- Mobile -->
+    <details class="group lg:hidden">
+      <summary class="flex cursor-pointer list-none items-center justify-between py-4 [&::-webkit-details-marker]:hidden">
+        <span class="text-lg font-semibold tracking-tight text-stone-900">Bethesda Baptist Church</span>
+        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-stone-300 text-stone-600" aria-hidden="true">
+          <svg class="h-5 w-5 group-open:hidden" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+          </svg>
+          <svg class="hidden h-5 w-5 group-open:block" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+          </svg>
+        </span>
+        <span class="sr-only">Toggle menu</span>
+      </summary>
+
+      <nav aria-label="Primary" class="flex flex-col gap-0.5 border-t border-stone-200 pb-4 pt-2 text-sm">
+        <a
+          href={hrefFor('/')}
+          aria-current={isActive('/') ? 'page' : undefined}
+          class:list={[
+            'rounded px-2 py-2.5 text-stone-600',
+            { 'font-semibold text-stone-900': isActive('/') },
+          ]}
+        >
+          {t.nav.home}
+        </a>
+
+        <p class="px-2 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-stone-400">{t.nav.aboutMenu}</p>
+        {ABOUT_SUBNAV.map((sub) => (
           <a
-            href={hrefFor(item.path)}
-            aria-current={isActive(item.path) ? 'page' : undefined}
+            href={hrefFor(sub.path)}
+            aria-current={isActive(sub.path) ? 'page' : undefined}
             class:list={[
-              'rounded px-2 py-1.5 text-stone-600 hover:text-stone-900',
-              { 'font-semibold text-stone-900': isActive(item.path) },
+              'rounded px-4 py-2.5 text-stone-600',
+              { 'font-semibold text-stone-900': isActive(sub.path) },
             ]}
           >
-            {t.nav[item.key]}
+            {t.nav[sub.key]}
           </a>
-        )
-      )}
+        ))}
 
-      <details class="group relative">
-        <summary class="flex cursor-pointer list-none items-center gap-1 rounded border border-stone-300 px-2 py-1 text-xs font-medium text-stone-600 hover:border-stone-400 hover:text-stone-900 [&::-webkit-details-marker]:hidden">
-          <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7.75 5.75a.75.75 0 00-1.5 0v1.5h-1.5a.75.75 0 000 1.5h1.5v1.5a.75.75 0 001.5 0v-1.5h1.5a.75.75 0 000-1.5h-1.5v-1.5zM4.06 12.5a6.5 6.5 0 0011.88 0h-2.19a.75.75 0 000 1.5h.94A6.48 6.48 0 018 15.4v-.9a.75.75 0 00-1.5 0v.9a6.48 6.48 0 01-2.19-1.9h.94a.75.75 0 000-1.5H4.06z" clip-rule="evenodd" />
-          </svg>
-          {lang === 'en' ? 'EN' : 'नेपाली'}
-        </summary>
-        <div class="absolute right-0 top-full z-10 mt-1 w-32 rounded border border-stone-200 bg-white py-1 shadow-lg">
+        <div class="mt-2 border-t border-stone-200 pt-2">
+          {NAV.filter((item) => item.path !== null && item.path !== '/').map((item) => (
+            <a
+              href={hrefFor(item.path as string)}
+              aria-current={isActive(item.path as string) ? 'page' : undefined}
+              class:list={[
+                'block rounded px-2 py-2.5 text-stone-600',
+                { 'font-semibold text-stone-900': isActive(item.path as string) },
+              ]}
+            >
+              {t.nav[item.key]}
+            </a>
+          ))}
+        </div>
+
+        <div class="mt-3 flex gap-2 border-t border-stone-200 px-2 pt-3">
           {langOptions.map((opt) => (
             <a
               href={hrefForLang(opt.code)}
               aria-current={lang === opt.code ? 'true' : undefined}
               class:list={[
-                'block px-3 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900',
-                { 'font-semibold text-stone-900': lang === opt.code },
+                'rounded-full border px-3 py-1 text-xs font-medium',
+                lang === opt.code
+                  ? 'border-stone-900 bg-stone-900 text-white'
+                  : 'border-stone-300 text-stone-600',
               ]}
             >
               {opt.label}
             </a>
           ))}
         </div>
-      </details>
-    </nav>
+      </nav>
+    </details>
   </div>
 </header>

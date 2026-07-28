@@ -7,13 +7,15 @@ and it can be swapped in directly.
 
 ## Facts marked as examples on the live site
 
-- **Service times** — shown as Sunday School 9:00 AM, Sunday Worship
-  10:00 AM, Wednesday Prayer Meeting 6:00 PM (`src/pages/visit/`,
+- **Service times** — shown as Saturday Bible Study 9:00 AM, Saturday
+  Worship 10:00 AM, Wednesday Prayer Meeting 6:00 PM (`src/pages/visit/`,
   `src/content/ministries/*.md` `meetingTime` field) — confirm or correct
-- **Ministry leaders** — Pastor Hari KC is listed as Sunday Worship leader;
+- **Ministry leaders** — Pastor Hari KC is listed as Saturday Worship leader;
   other ministries say "To be announced" (`src/content/ministries/*.md`)
 - **Sermons** — 4 example titles with no video attached yet, clearly marked
-  as illustrative (`src/content/sermons/*.md`). **To add a real sermon**:
+  as illustrative (`src/content/sermons/*.md`). Waiting on a real YouTube
+  link from the pastor to embed the first actual sermon. **To add a real
+  sermon**:
   create a new `.md` file in `src/content/sermons/` with
   `title`, `date` (YYYY-MM-DD), and `youtubeUrl` (a normal
   `youtube.com/watch?v=...` or `youtu.be/...` link) in the frontmatter —

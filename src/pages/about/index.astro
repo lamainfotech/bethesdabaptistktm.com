@@ -37,7 +37,7 @@ const values = [
       widths={[640, 1600]}
       sizes="100vw"
     />
-    <div class="absolute inset-0 -z-10 bg-stone-900/70"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
     <h1 class="text-3xl font-bold sm:text-4xl">About Us</h1>
   </section>
 
@@ -59,7 +59,7 @@ const values = [
     </p>
     <div class="mt-6 grid gap-6 sm:grid-cols-2">
       {values.map((value) => (
-        <div class="rounded border border-stone-200 p-5">
+        <div class="rounded-lg border border-stone-200 p-5 shadow-sm">
           <h3 class="font-semibold text-stone-900">{value.title}</h3>
           <p class="mt-1 text-sm text-stone-600">{value.body}</p>
         </div>
@@ -67,7 +67,7 @@ const values = [
     </div>
 
     <h2 class="mt-10 text-xl font-semibold text-stone-900">Leadership</h2>
-    <div class="mt-4 flex flex-col gap-4 rounded border border-stone-200 p-5 sm:flex-row sm:items-start">
+    <div class="mt-4 flex flex-col gap-4 rounded-lg border border-stone-200 p-5 shadow-sm sm:flex-row sm:items-start">
       <div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-400">
         <svg class="h-10 w-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.24-8 5v1a1 1 0 001 1h14a1 1 0 001-1v-1c0-2.76-3.58-5-8-5z" />
@@ -85,11 +85,11 @@ const values = [
     </div>
 
     <div class="mt-10 grid gap-6 sm:grid-cols-2">
-      <a href="/beliefs/" class="rounded border border-stone-200 p-5 hover:border-stone-400">
+      <a href="/beliefs/" class="rounded-lg border border-stone-200 p-5 shadow-sm transition-shadow hover:shadow-md hover:border-stone-400">
         <h2 class="font-semibold text-stone-900">Statement of Faith</h2>
         <p class="mt-1 text-sm text-stone-600">What we believe about Scripture, God, salvation, and the church.</p>
       </a>
-      <a href="/covenant/" class="rounded border border-stone-200 p-5 hover:border-stone-400">
+      <a href="/covenant/" class="rounded-lg border border-stone-200 p-5 shadow-sm transition-shadow hover:shadow-md hover:border-stone-400">
         <h2 class="font-semibold text-stone-900">Church Covenant</h2>
         <p class="mt-1 text-sm text-stone-600">Our shared commitments to God and to one another as a congregation.</p>
       </a>
