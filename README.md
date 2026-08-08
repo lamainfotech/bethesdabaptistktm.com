@@ -3,6 +3,10 @@
 Astro site for Bethesda Baptist Church, Dhumbarahi, Kathmandu, Nepal. Static
 site, bilingual (English / Nepali), content in Markdown content collections.
 
+- **Updating text, sermons, or photos?** See [`CONTENT-GUIDE.md`](./CONTENT-GUIDE.md) — no coding needed, edits happen on github.com.
+- **Setting up hosting / the domain?** See [`DEPLOYMENT.md`](./DEPLOYMENT.md) — Cloudflare Pages setup, dashboard only.
+- **What's still placeholder content?** See [`CONTENT-TODO.md`](./CONTENT-TODO.md).
+
 ## Structure
 
 ```text
@@ -32,5 +36,6 @@ what's still outstanding.
 
 ## Deploy
 
-Static output (`dist/`) — deploy to Netlify/Vercel/Cloudflare Pages and
-point the `bethesdabaptistktm.com` DNS (registered via Yoho Cloud) at it.
+Hosted on Cloudflare Pages, connected to this repo — every push to `main`
+rebuilds and republishes automatically. Full setup steps (Pages project,
+domain, DNS) are in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
