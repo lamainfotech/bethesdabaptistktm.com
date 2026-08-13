@@ -1,68 +1,78 @@
 # Deployment guide (Cloudflare Pages)
 
-This walks through putting the site live on `bethesdabaptistktm.com` using
-Cloudflare Pages. No command line needed — everything happens in the
-Cloudflare dashboard. You should already have been given access to the
-Cloudflare account.
+The deployment automation is **already set up** in this repo
+(`.github/workflows/deploy.yml`). Every push to the `main` branch on GitHub
+automatically builds the site and publishes it to Cloudflare Pages — nothing
+to configure in Astro or Cloudflare's build settings.
 
-Every time someone pushes new content to the `main` branch on GitHub (see
-`CONTENT-GUIDE.md`), Cloudflare rebuilds and republishes the site
-automatically within a minute or two. You only need to do this setup once.
+There are only two things left to do, both one-time: give this GitHub repo
+your Cloudflare credentials, and connect the domain. No command line needed
+for either.
 
-## 1. Create the Pages project
+## 1. Add the two Cloudflare secrets to GitHub
 
-1. Log in at [dash.cloudflare.com](https://dash.cloudflare.com).
-2. In the left sidebar, go to **Workers & Pages**.
-3. Click **Create** → **Pages** → **Connect to Git**.
-4. Choose the GitHub account/org (`lamainfotech`) and authorize Cloudflare
-   to access it if asked, then pick the repo:
-   `lamainfotech/bethesdabaptistktm.com`.
-5. On the build settings screen, set:
-   - **Framework preset**: `Astro`
-   - **Build command**: `npm run build`
-   - **Build output directory**: `dist`
-   Cloudflare should auto-fill these once it detects Astro — just confirm
-   they match.
-6. Click **Save and Deploy**. The first build takes a couple of minutes.
-   Watch the build log; it should end with a green "Success".
+The automated deploy needs two values from Cloudflare, saved as GitHub
+"secrets" (private values only the automation can read).
 
-The repo already contains a `.node-version` file (currently set to `24`),
-which Cloudflare reads automatically to pick the right Node.js version — you
-don't need to set that manually. If a build ever fails with an error
-mentioning an unsupported or old Node version, go to the project's
-**Settings → Environment variables** and add `NODE_VERSION` = `24` there as
-a backup.
+**Get the values from Cloudflare:**
 
-You'll get a working URL like `bethesdabaptistktm.pages.dev` — check that
-it loads before moving to the domain step.
+1. Log in at [dash.cloudflare.com](https://dash.cloudflare.com) (you should
+   already have access).
+2. **Account ID**: on the Cloudflare dashboard's Overview page, the
+   Account ID is shown in the right-hand sidebar. Copy it.
+3. **API Token**: click your profile icon (top right) → **My Profile** →
+   **API Tokens** → **Create Token** → find the **"Edit Cloudflare
+   Workers"** template → **Use template** → **Continue to summary** →
+   **Create Token**. Copy the token shown — it's only displayed once.
+
+**Add them to GitHub:**
+
+1. Go to `github.com/lamainfotech/bethesdabaptistktm.com` → **Settings**
+   tab → **Secrets and variables** → **Actions**.
+2. Click **New repository secret**.
+   - Name: `CLOUDFLARE_ACCOUNT_ID`, Value: the Account ID you copied →
+     **Add secret**.
+3. Click **New repository secret** again.
+   - Name: `CLOUDFLARE_API_TOKEN`, Value: the API token you copied →
+     **Add secret**.
+
+That's it. As soon as both are saved, go to the **Actions** tab of the
+repo — if a workflow run is sitting there failed (red ✗) from before the
+secrets were added, click into it and click **Re-run all jobs**. Otherwise
+just push any change and it'll deploy on its own. A successful run shows a
+green ✓, and creates the Cloudflare Pages project automatically the first
+time (named `bethesdabaptistktm`) — no need to create it by hand.
+
+You can check it's live at `bethesdabaptistktm.pages.dev` once the run
+finishes.
 
 ## 2. Connect the domain
 
-1. Open the Pages project you just created → **Custom domains** tab.
-2. Click **Set up a custom domain**, enter `bethesdabaptistktm.com`, and
-   follow the prompt (it will ask for `www.bethesdabaptistktm.com` too —
-   add that as a second custom domain the same way).
-3. What happens next depends on where the domain's DNS is managed
-   (registered via Yoho Cloud):
+1. In Cloudflare, go to **Workers & Pages** → the `bethesdabaptistktm`
+   project (it now exists after step 1) → **Custom domains** tab.
+2. Click **Set up a custom domain**, enter `bethesdabaptistktm.com` →
+   follow the prompts. Repeat for `www.bethesdabaptistktm.com`.
+3. What happens next depends on where the domain's DNS lives (registered
+   via Yoho Cloud):
    - **If the domain is already added to this Cloudflare account** (under
-     **Websites**), Cloudflare adds the DNS records for you automatically —
-     just click through and it's done.
-   - **If it isn't on Cloudflare yet**, Cloudflare will show nameservers
-     (e.g. `xxx.ns.cloudflare.com`) to set at the domain registrar (Yoho
-     Cloud's control panel), or a CNAME record to add if you're keeping DNS
-     elsewhere. Follow whichever option Cloudflare shows on screen.
-4. DNS changes can take anywhere from a few minutes to a few hours to take
-   effect. The custom domain will show a green "Active" status once it's
-   working.
+     **Websites** in the sidebar), Cloudflare wires up the DNS records for
+     you automatically — just click through.
+   - **If it isn't on Cloudflare yet**, Cloudflare will show you either
+     nameservers to set at the registrar (Yoho Cloud's control panel), or a
+     CNAME record to add if DNS is staying elsewhere. Follow whichever
+     option it shows on screen.
+4. DNS changes can take a few minutes to a few hours. The custom domain
+   shows a green "Active" status once it's working.
 
 ## Troubleshooting
 
-- **Build fails**: open the failed deployment and read the build log — the
-  error is usually near the bottom. Most common cause is a typo in a
-  content file pushed via the GitHub web editor (see `CONTENT-GUIDE.md`).
-- **Domain stuck on "Pending"**: double check the nameservers/CNAME match
-  exactly what Cloudflare asked for, and give it a few hours for DNS to
-  propagate.
-- **Need to redeploy manually**: Pages project → **Deployments** tab →
-  **Retry deployment** on the latest one, or just push any small change to
-  `main` on GitHub to trigger a new build.
+- **GitHub Actions run fails**: click into the failed run (repo → **Actions**
+  tab) and read the red step's log. If it says something about
+  `CLOUDFLARE_API_TOKEN`, the secrets from step 1 aren't saved correctly —
+  double check the exact names `CLOUDFLARE_ACCOUNT_ID` and
+  `CLOUDFLARE_API_TOKEN`.
+- **Domain stuck on "Pending"**: confirm the nameservers/CNAME match exactly
+  what Cloudflare asked for, and give DNS a few hours to propagate.
+- **Want to trigger a redeploy without changing content**: repo → **Actions**
+  tab → select the workflow → **Run workflow** (or push any small change to
+  `main`).

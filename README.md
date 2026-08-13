@@ -36,6 +36,8 @@ what's still outstanding.
 
 ## Deploy
 
-Hosted on Cloudflare Pages, connected to this repo — every push to `main`
-rebuilds and republishes automatically. Full setup steps (Pages project,
-domain, DNS) are in [`DEPLOYMENT.md`](./DEPLOYMENT.md).
+Hosted on Cloudflare Pages via a GitHub Actions workflow
+(`.github/workflows/deploy.yml`) — every push to `main` builds and deploys
+automatically. Requires two repo secrets (`CLOUDFLARE_API_TOKEN`,
+`CLOUDFLARE_ACCOUNT_ID`); see [`DEPLOYMENT.md`](./DEPLOYMENT.md) for the
+one-time setup and connecting the domain.
