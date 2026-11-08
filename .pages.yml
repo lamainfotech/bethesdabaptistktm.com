@@ -1,1 +1,136 @@
-media: media
+media:
+  input: src/assets/images
+  output: /src/assets/images
+  rename: false
+  categories: [image]
+
+content:
+  - name: ministries
+    label: Ministries
+    type: collection
+    path: src/content/ministries
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: summary
+        label: Summary
+        type: text
+        required: true
+      - name: meetingTime
+        label: Meeting time
+        type: string
+      - name: leader
+        label: Leader
+        type: string
+      - name: placeholder
+        label: Placeholder content
+        type: boolean
+      - name: order
+        label: Display order
+        type: number
+        required: true
+      - name: body
+        label: Additional content
+        type: rich-text
+        options:
+          format: markdown
+          media: false
+
+  - name: sermons
+    label: Sermons
+    type: collection
+    path: src/content/sermons
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: youtubeUrl
+        label: YouTube URL
+        type: string
+      - name: body
+        label: Notes
+        type: rich-text
+        options:
+          format: markdown
+          media: false
+    view:
+      primary: title
+      sort: date
+      order: desc
+
+  - name: faith
+    label: Statements of Faith
+    type: collection
+    path: src/content/faith
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: locale
+        label: Language
+        type: select
+        required: true
+        options:
+          values:
+            - name: en
+              label: English
+            - name: ne
+              label: Nepali
+      - name: translationPending
+        label: Translation pending
+        type: boolean
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: false
+    view:
+      primary: title
+      sort: locale
+
+  - name: covenant
+    label: Church Covenant
+    type: collection
+    path: src/content/covenant
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: locale
+        label: Language
+        type: select
+        required: true
+        options:
+          values:
+            - name: en
+              label: English
+            - name: ne
+              label: Nepali
+      - name: translationPending
+        label: Translation pending
+        type: boolean
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: false
+    view:
+      primary: title
+      sort: locale
