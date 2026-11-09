@@ -1,10 +1,78 @@
 media:
   input: src/assets/images
-  output: /src/assets/images
+  # Path written into content files. Content lives in src/content/<collection>/,
+  # so images are referenced relative to it (Astro needs this to find and optimise them).
+  output: ../../assets/images
   rename: false
   categories: [image]
 
 content:
+  - name: home-en
+    label: Home page (English)
+    type: file
+    path: src/content/home/en.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Browser tab title, type: string, required: true }
+      - { name: description, label: Search engine description, type: text, required: true }
+      - { name: heroTitle, label: Banner heading, type: string, required: true }
+      - { name: heroText, label: Banner text, type: text, required: true }
+      - { name: heroImage, label: Banner photo, type: image, required: true }
+      - { name: heroImageAlt, label: Banner photo description (for screen readers), type: string, required: true }
+      - { name: heroPrimaryButton, label: Banner button 1 (goes to Visit page), type: string, required: true }
+      - { name: heroSecondaryButton, label: Banner button 2 (goes to About page), type: string, required: true }
+      - { name: quote, label: Quote (leave empty to hide), type: text }
+      - { name: quoteSource, label: Quote source, type: string }
+      - { name: serviceTimesTitle, label: Service times heading, type: string, required: true }
+      - { name: serviceTimes, label: Service times, type: string, required: true }
+      - { name: serviceTimesPlaceholder, label: Show "example" badge on service times, type: boolean }
+      - { name: serviceTimesLink, label: Service times link text (leave empty to hide), type: string }
+      - { name: locationTitle, label: Location heading, type: string, required: true }
+      - { name: locationLink, label: Location link text (leave empty to hide), type: string }
+      - { name: beliefsTitle, label: Beliefs heading, type: string, required: true }
+      - { name: beliefsText, label: Beliefs text, type: string }
+      - { name: beliefsLink, label: Beliefs link text, type: string, required: true }
+      - { name: ministriesTitle, label: Ministries heading, type: string, required: true }
+      - { name: ministriesText, label: Ministries intro text, type: text }
+      - { name: visitTitle, label: Visit section heading, type: string, required: true }
+      - { name: visitText, label: Visit section text, type: text, required: true }
+      - { name: visitButton, label: Visit section button, type: string, required: true }
+      - { name: visitImage, label: Visit section photo, type: image, required: true }
+      - { name: visitImageAlt, label: Visit section photo description (for screen readers), type: string, required: true }
+
+  - name: home-ne
+    label: Home page (Nepali)
+    type: file
+    path: src/content/home/ne.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Browser tab title, type: string, required: true }
+      - { name: description, label: Search engine description, type: text, required: true }
+      - { name: heroTitle, label: Banner heading, type: string, required: true }
+      - { name: heroText, label: Banner text, type: text, required: true }
+      - { name: heroImage, label: Banner photo, type: image, required: true }
+      - { name: heroImageAlt, label: Banner photo description (for screen readers), type: string, required: true }
+      - { name: heroPrimaryButton, label: Banner button 1 (goes to Visit page), type: string, required: true }
+      - { name: heroSecondaryButton, label: Banner button 2 (goes to About page), type: string, required: true }
+      - { name: quote, label: Quote (leave empty to hide), type: text }
+      - { name: quoteSource, label: Quote source, type: string }
+      - { name: serviceTimesTitle, label: Service times heading, type: string, required: true }
+      - { name: serviceTimes, label: Service times, type: string, required: true }
+      - { name: serviceTimesPlaceholder, label: Show "example" badge on service times, type: boolean }
+      - { name: serviceTimesLink, label: Service times link text (leave empty to hide), type: string }
+      - { name: locationTitle, label: Location heading, type: string, required: true }
+      - { name: locationLink, label: Location link text (leave empty to hide), type: string }
+      - { name: beliefsTitle, label: Beliefs heading, type: string, required: true }
+      - { name: beliefsText, label: Beliefs text, type: string }
+      - { name: beliefsLink, label: Beliefs link text, type: string, required: true }
+      - { name: ministriesTitle, label: Ministries heading, type: string, required: true }
+      - { name: ministriesText, label: Ministries intro text, type: text }
+      - { name: visitTitle, label: Visit section heading, type: string, required: true }
+      - { name: visitText, label: Visit section text, type: text, required: true }
+      - { name: visitButton, label: Visit section button, type: string, required: true }
+      - { name: visitImage, label: Visit section photo, type: image, required: true }
+      - { name: visitImageAlt, label: Visit section photo description (for screen readers), type: string, required: true }
+
   - name: ministries
     label: Ministries
     type: collection
@@ -31,6 +99,10 @@ content:
       - name: order
         label: Display order
         type: number
+        required: true
+      - name: image
+        label: Photo
+        type: image
         required: true
       - name: body
         label: Additional content
