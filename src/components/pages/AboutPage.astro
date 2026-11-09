@@ -1,0 +1,175 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import SectionHeading from '../SectionHeading.astro';
+import IconBadge from '../IconBadge.astro';
+import Icon from '../Icon.astro';
+import CtaBand from '../CtaBand.astro';
+import ExampleNotice from '../ExampleNotice.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import type { IconName } from '../Icon.astro';
+import { localHref } from '../../lib/links';
+import type { Lang } from '../../lib/ui';
+import heroImage from '../../assets/images/about-kathmandu.jpg';
+import storyImage from '../../assets/images/ministry-worship.jpg';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+// Story, mission and values are not yet translated; the Nepali page shows a translation notice in their place.
+const copy = {
+  en: {
+    title: 'About Us',
+    description: 'Learn about Bethesda Baptist Church, an independent Baptist congregation in Kathmandu, Nepal.',
+    heroAlt: 'Kathmandu cityscape',
+    eyebrow: 'Who we are',
+    intro: 'A local church in Kathmandu, gathered around Christ and His Word.',
+    storyEyebrow: 'Our story',
+    storyTitle: 'Rooted in the Word, planted in Kathmandu',
+    story: [
+      "Bethesda Baptist Church is an independent, autonomous congregation in Kathmandu, Nepal, subject only to Jesus Christ as the Head of the Church.",
+      "We are free to cooperate with other Biblical, like-minded churches, while holding firmly to the authority of God's Word as our final rule for faith and life.",
+    ],
+    missionEyebrow: 'Our mission',
+    missionTitle: 'What we are about',
+    mission:
+      'Our aim is to be biblically rooted, mature in a local community of believers, and to seek those outside that community — both locally and globally — with character, compassion, courage, and creativity.',
+    values: [
+      { icon: 'book', title: 'Biblically Rooted', body: 'Everything we do is anchored in the authority and sufficiency of Scripture — see our Statement of Faith.' },
+      { icon: 'users', title: 'A Mature Community', body: 'We grow together as believers through worship, discipleship, and mutual encouragement in the local church.' },
+      { icon: 'heart', title: 'Character & Compassion', body: 'We seek to reflect Christ in how we treat one another and our neighbors, in Kathmandu and beyond.' },
+      { icon: 'sparkles', title: 'Courage & Creativity', body: 'We want to reach people outside our community — locally and globally — with boldness and fresh approaches to the unchanging gospel.' },
+    ] as { icon: IconName; title: string; body: string }[],
+    leadershipEyebrow: 'Leadership',
+    leadershipTitle: 'Our pastor',
+    pastorName: 'Pastor Hari KC',
+    pastorBio: "Pastor Hari KC leads Bethesda Baptist Church, shepherding the congregation through the preaching of God's Word and the care of the flock.",
+    beliefsEyebrow: 'What we believe',
+    beliefsTitle: 'Our convictions',
+    faithTitle: 'Statement of Faith',
+    faithBody: 'What we believe about Scripture, God, salvation, and the church.',
+    covenantTitle: 'Church Covenant',
+    covenantBody: 'Our shared commitments to God and to one another as a congregation.',
+    read: 'Read',
+    ctaTitle: 'Come and worship with us',
+    ctaText: "Whether you're new to Kathmandu or new to church, you are welcome here.",
+    ctaButton: 'Plan a Visit',
+  },
+  ne: {
+    title: 'हाम्रो बारे',
+    description: 'बेथेस्दा ब्याप्टिष्ट चर्चको बारेमा जान्नुहोस्।',
+    heroAlt: 'काठमाडौं सहर दृश्य',
+    eyebrow: 'हामी को हौं',
+    intro: undefined,
+    storyEyebrow: 'हाम्रो कथा',
+    storyTitle: 'हाम्रो कथा',
+    story: null,
+    missionEyebrow: undefined,
+    missionTitle: undefined,
+    mission: undefined,
+    values: null,
+    leadershipEyebrow: 'नेतृत्व',
+    leadershipTitle: 'हाम्रो पास्टर',
+    pastorName: 'पास्टर हरि केसी',
+    pastorBio: 'पास्टर हरि केसीले बेथेस्दा ब्याप्टिष्ट चर्चको नेतृत्व गर्नुहुन्छ।',
+    beliefsEyebrow: 'हाम्रो विश्वास',
+    beliefsTitle: 'हाम्रो विश्वास',
+    faithTitle: 'विश्वासको वक्तव्य',
+    faithBody: undefined,
+    covenantTitle: 'चर्च करार',
+    covenantBody: undefined,
+    read: 'पढ्नुहोस्',
+    ctaTitle: 'हामीसँग आराधनामा सहभागी हुनुहोस्',
+    ctaText: 'तपाईंलाई हार्दिक स्वागत छ।',
+    ctaButton: 'आराधना समय र ठेगाना',
+  },
+}[lang];
+
+const docs = [
+  { href: localHref(lang, '/beliefs/'), title: copy.faithTitle, body: copy.faithBody, icon: 'book' as IconName },
+  { href: localHref(lang, '/covenant/'), title: copy.covenantTitle, body: copy.covenantBody, icon: 'heart' as IconName },
+];
+---
+
+<BaseLayout lang={lang} title={copy.title} description={copy.description}>
+  <PageHero title={copy.title} image={heroImage} alt={copy.heroAlt} eyebrow={copy.eyebrow} intro={copy.intro} />
+
+  <!-- Story -->
+  <section class:list={['mx-auto max-w-6xl px-4', copy.story ? 'py-20' : 'pt-16']}>
+    {copy.story ? (
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <SectionHeading eyebrow={copy.storyEyebrow} title={copy.storyTitle} />
+          {copy.story.map((p, i) => <p class:list={['mt-5 text-stone-700', i === 0 && 'text-lg']}>{p}</p>)}
+        </div>
+        <div class="relative">
+          <div class="absolute -bottom-4 -right-4 h-full w-full rounded-2xl border-2 border-gold-400" aria-hidden="true"></div>
+          <Image src={storyImage} alt="" class="relative h-80 w-full rounded-2xl object-cover shadow-xl lg:h-96" widths={[600, 1000]} sizes="(min-width: 1024px) 560px, 100vw" />
+        </div>
+      </div>
+    ) : (
+      <div class="mx-auto max-w-3xl">
+        <SectionHeading title={copy.storyTitle} />
+        <TranslationNotice enPath="/about/" />
+      </div>
+    )}
+  </section>
+
+  <!-- Mission & values -->
+  {copy.values && (
+    <section class="bg-cream py-20">
+      <div class="mx-auto max-w-6xl px-4">
+        <SectionHeading eyebrow={copy.missionEyebrow} title={copy.missionTitle!} intro={copy.mission} align="center" />
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {copy.values.map((value) => (
+            <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
+              <IconBadge name={value.icon} />
+              <h3 class="mt-5 text-lg font-semibold text-stone-900">{value.title}</h3>
+              <p class="mt-2 text-sm text-stone-600">{value.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Leadership -->
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <SectionHeading eyebrow={copy.leadershipEyebrow} title={copy.leadershipTitle} align="center" />
+    <div class="mx-auto mt-10 flex max-w-2xl flex-col items-center gap-6 rounded-2xl bg-white p-8 text-center shadow-sm ring-1 ring-stone-200 sm:flex-row sm:text-left">
+      <div class="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-300 ring-4 ring-brand-100">
+        <Icon name="user" class="h-14 w-14" />
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold text-stone-900">{copy.pastorName}</h3>
+        <p class="mt-2 text-stone-600">{copy.pastorBio}</p>
+        <div class="mt-3"><ExampleNotice lang={lang} /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beliefs -->
+  <section class="mx-auto max-w-6xl px-4 pb-20">
+    <SectionHeading eyebrow={copy.beliefsEyebrow} title={copy.beliefsTitle} align="center" />
+    <div class="mx-auto mt-10 grid max-w-4xl gap-6 sm:grid-cols-2">
+      {docs.map((doc) => (
+        <a href={doc.href} class="group flex gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-stone-200 transition hover:-translate-y-1 hover:shadow-lg hover:ring-brand-200">
+          <IconBadge name={doc.icon} />
+          <div>
+            <h3 class="text-lg font-semibold text-stone-900">{doc.title}</h3>
+            {doc.body && <p class="mt-1 text-sm text-stone-600">{doc.body}</p>}
+            <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-700">
+              {copy.read} <Icon name="arrow" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand title={copy.ctaTitle} text={copy.ctaText} button={copy.ctaButton} href={localHref(lang, '/visit/')} />
+</BaseLayout>

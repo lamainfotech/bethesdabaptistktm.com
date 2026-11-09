@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getYoutubeEmbedUrl } from '../lib/youtube';
+import { useTranslations, type Lang } from '../lib/ui';
+
+interface Props {
+  lang: Lang;
+  /** Newest first. */
+  sermons: CollectionEntry<'sermons'>[];
+}
+
+const { lang, sermons } = Astro.props;
+const t = useTranslations(lang);
+const dateFormatter = new Intl.DateTimeFormat(lang === 'ne' ? 'ne-NP' : 'en-US', { dateStyle: 'long' });
+
+// Feature the newest sermon that has a playable video; list everything else compactly,
+// so sermons without a video don't leave large empty boxes on the page.
+const featured = sermons.find((s) => s.data.youtubeUrl && getYoutubeEmbedUrl(s.data.youtubeUrl));
+const featuredEmbed = featured ? getYoutubeEmbedUrl(featured.data.youtubeUrl!) : null;
+const rest = sermons.filter((s) => s !== featured);
+---
+
+{featured && featuredEmbed && (
+  <article class="mt-8">
+    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">{t.common.latestSermon}</p>
+    <h2 class="mt-2 text-2xl font-bold text-stone-900">{featured.data.title}</h2>
+    <p class="mt-1 text-sm text-stone-500">{dateFormatter.format(featured.data.date)}</p>
+    <div class="mt-5 aspect-video overflow-hidden rounded-xl bg-stone-900 shadow-lg ring-1 ring-stone-200">
+      <iframe
+        class="h-full w-full"
+        src={featuredEmbed}
+        title={featured.data.title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </article>
+)}
+
+{rest.length > 0 && (
+  <div class="mt-12">
+    {featured && <h2 class="text-xl font-semibold text-stone-900">{t.common.moreSermons}</h2>}
+    <ul class="mt-4 divide-y divide-stone-200 overflow-hidden rounded-xl border border-stone-200 bg-white">
+      {rest.map((sermon) => (
+        <li class="flex flex-wrap items-center justify-between gap-3 p-5">
+          <div>
+            <h3 class="font-semibold text-stone-900">{sermon.data.title}</h3>
+            <p class="text-sm text-stone-500">{dateFormatter.format(sermon.data.date)}</p>
+          </div>
+          {sermon.data.youtubeUrl ? (
+            <a
+              href={sermon.data.youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-lg bg-brand-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-800"
+            >
+              <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6.3 2.84A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.27l9.34-5.89a1.5 1.5 0 000-2.54L6.3 2.84z" /></svg>
+              {t.common.watch}
+            </a>
+          ) : (
+            <span class="rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-500">{t.common.videoComingSoon}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}

@@ -5,4 +5,5 @@ meetingTime: Monthly
 leader: To be announced
 placeholder: true
 order: 3
+image: ../../assets/images/ministry-outreach.jpg
 ---

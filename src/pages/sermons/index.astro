@@ -1,14 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import bannerImage from '../../assets/images/open-bible.jpg';
+import PageHero from '../../components/PageHero.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ExampleNotice from '../../components/ExampleNotice.astro';
-import { getYoutubeEmbedUrl } from '../../lib/youtube';
+import SermonList from '../../components/SermonList.astro';
 
 const sermons = (await getCollection('sermons')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
-
-const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' });
 ---
 
 <BaseLayout
@@ -16,48 +16,22 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' });
   title="Sermons"
   description="Sermons from Bethesda Baptist Church, Kathmandu."
 >
-  <section class="mx-auto max-w-2xl px-4 py-14">
-    <h1 class="text-3xl font-bold text-stone-900">Sermons</h1>
+  <PageHero title="Sermons" image={bannerImage} alt="An open Bible" eyebrow="Listen & watch" intro="Messages from the preaching of God's Word at Bethesda." />
 
+  <section class="mx-auto max-w-3xl px-4 py-14">
     {sermons.length === 0 ? (
-      <div class="mt-8 rounded-lg border border-dashed border-stone-300 p-5 text-stone-600">
+      <div class="rounded-lg border border-dashed border-stone-300 p-5 text-stone-600">
         <p class="font-medium text-stone-800">Sermons coming soon</p>
         <p class="mt-1 text-sm">We're setting up recordings for past and future messages. Check back soon.</p>
       </div>
     ) : (
       <>
-        <div class="mt-6">
+        <div>
           <ExampleNotice lang="en" variant="banner">
             <p>These are example listings — real sermon videos will replace them soon.</p>
           </ExampleNotice>
         </div>
-        <ul class="mt-6 space-y-10">
-          {sermons.map((sermon) => {
-            const embedUrl = sermon.data.youtubeUrl ? getYoutubeEmbedUrl(sermon.data.youtubeUrl) : null;
-            return (
-              <li>
-                <h2 class="font-semibold text-stone-900">{sermon.data.title}</h2>
-                <p class="text-sm text-stone-500">{dateFormatter.format(sermon.data.date)}</p>
-                <div class="mt-3 aspect-video overflow-hidden rounded-lg border border-stone-200 bg-stone-100 shadow-sm">
-                  {embedUrl ? (
-                    <iframe
-                      class="h-full w-full"
-                      src={embedUrl}
-                      title={sermon.data.title}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  ) : (
-                    <div class="flex h-full w-full items-center justify-center text-sm text-stone-400">
-                      Video coming soon
-                    </div>
-                  )}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <SermonList lang="en" sermons={sermons} />
       </>
     )}
   </section>

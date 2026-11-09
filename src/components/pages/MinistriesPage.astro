@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import Icon from '../Icon.astro';
+import CtaBand from '../CtaBand.astro';
+import ExampleNotice from '../ExampleNotice.astro';
+import { localHref } from '../../lib/links';
+import type { Lang } from '../../lib/ui';
+import heroImage from '../../assets/images/about-kathmandu.jpg';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const ministries = (await getCollection('ministries')).sort((a, b) => a.data.order - b.data.order);
+
+const copy = {
+  en: {
+    title: 'Ministries',
+    description: 'Ministries of Bethesda Baptist Church, Kathmandu.',
+    heroAlt: 'Kathmandu cityscape',
+    eyebrow: 'Grow & serve',
+    intro: 'The ways our congregation gathers to grow in Christ and serve one another.',
+    note: 'Below are example ministry areas — final names, schedules, and leaders will be confirmed soon.',
+    meets: 'Meets',
+    leader: 'Leader',
+    ctaTitle: 'Want to get involved?',
+    ctaText: "Get in touch and we'll help you find a place to grow and serve.",
+    ctaButton: 'Contact Us',
+  },
+  ne: {
+    title: 'सेवाहरू',
+    description: 'बेथेस्दा ब्याप्टिष्ट चर्चका सेवाहरू।',
+    heroAlt: 'काठमाडौं सहर दृश्य',
+    eyebrow: undefined,
+    intro: undefined,
+    note: 'पूर्ण नेपाली विवरण चाँडै थपिनेछ।',
+    meets: 'समय',
+    leader: 'अगुवा',
+    ctaTitle: 'सहभागी हुन चाहनुहुन्छ?',
+    ctaText: 'हामीलाई सम्पर्क गर्नुहोस्।',
+    ctaButton: 'सम्पर्क',
+  },
+}[lang];
+---
+
+<BaseLayout lang={lang} title={copy.title} description={copy.description}>
+  <PageHero title={copy.title} image={heroImage} alt={copy.heroAlt} eyebrow={copy.eyebrow} intro={copy.intro} />
+
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <p class="mx-auto max-w-2xl text-center text-sm text-stone-500">{copy.note}</p>
+
+    <div class="mt-14 space-y-20">
+      {ministries.map((ministry, i) => (
+        <article class="grid items-center gap-10 md:grid-cols-2">
+          <div class:list={['relative', i % 2 === 1 && 'md:order-2']}>
+            <div class:list={['absolute -bottom-4 h-full w-full rounded-2xl bg-brand-50', i % 2 === 1 ? '-left-4' : '-right-4']} aria-hidden="true"></div>
+            <Image
+              src={ministry.data.image}
+              alt=""
+              class="relative h-72 w-full rounded-2xl object-cover shadow-lg sm:h-80"
+              widths={[500, 900]}
+              sizes="(min-width: 768px) 540px, 100vw"
+            />
+          </div>
+          <div>
+            <p class="font-serif text-5xl font-bold text-brand-100" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+            <h2 class="mt-1 text-3xl font-bold text-stone-900">{ministry.data.title}</h2>
+            <p class="mt-4 text-lg text-stone-600">{ministry.data.summary}</p>
+            {(ministry.data.meetingTime || ministry.data.leader) && (
+              <dl class="mt-6 flex flex-wrap gap-3 text-sm">
+                {ministry.data.meetingTime && (
+                  <div class="inline-flex items-center gap-2 rounded-full bg-stone-100 px-4 py-2 text-stone-700">
+                    <Icon name="clock" class="h-4 w-4 text-brand-700" />
+                    <dt class="sr-only">{copy.meets}</dt>
+                    <dd>{ministry.data.meetingTime}</dd>
+                  </div>
+                )}
+                {ministry.data.leader && (
+                  <div class="inline-flex items-center gap-2 rounded-full bg-stone-100 px-4 py-2 text-stone-700">
+                    <Icon name="user" class="h-4 w-4 text-brand-700" />
+                    <dt class="sr-only">{copy.leader}</dt>
+                    <dd>{ministry.data.leader}</dd>
+                  </div>
+                )}
+              </dl>
+            )}
+            {ministry.data.placeholder && <div class="mt-4"><ExampleNotice lang={lang} /></div>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand title={copy.ctaTitle} text={copy.ctaText} button={copy.ctaButton} href={localHref(lang, '/contact/')} />
+</BaseLayout>

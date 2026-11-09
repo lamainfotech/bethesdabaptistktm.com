@@ -1,37 +1,86 @@
 ---
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { CONTACT, POSTAL_ADDRESS, SITE_NAME, SITE_NAME_NE, SITE_URL } from '../lib/site';
+import { localHref } from '../lib/links';
 import type { Lang } from '../lib/ui';
+import shareImageSrc from '../assets/images/hero-kathmandu.jpg';
 
 interface Props {
   lang: Lang;
   title: string;
   description: string;
+  /** Home page: the site name leads the <title> and the Church schema is emitted. */
+  isHome?: boolean;
 }
 
-const { lang, title, description } = Astro.props;
+const { lang, title, description, isHome = false } = Astro.props;
+
+const FONT_CSS = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&display=swap';
+
+const siteName = lang === 'ne' ? SITE_NAME_NE : SITE_NAME;
+const pageTitle = isHome ? `${siteName} | ${title}` : `${title} | ${siteName}`;
+const canonical = new URL(Astro.url.pathname, SITE_URL).href;
+
+// Every page exists in both languages at the same slug ("/ne" prefix for Nepali).
+const slug = lang === 'ne' ? Astro.url.pathname.replace(/^\/ne/, '') || '/' : Astro.url.pathname;
+const alternates = {
+  en: new URL(localHref('en', slug), SITE_URL).href,
+  ne: new URL(localHref('ne', slug), SITE_URL).href,
+};
+
+const shareImage = await getImage({ src: shareImageSrc, width: 1200, format: 'jpg' });
+const shareImageUrl = new URL(shareImage.src, SITE_URL).href;
+
+const churchSchema = isHome && {
+  '@context': 'https://schema.org',
+  '@type': 'Church',
+  name: SITE_NAME,
+  alternateName: SITE_NAME_NE,
+  description,
+  url: alternates.en,
+  image: shareImageUrl,
+  logo: new URL('/favicon.svg', SITE_URL).href,
+  telephone: CONTACT.phones,
+  email: CONTACT.email,
+  address: { '@type': 'PostalAddress', ...POSTAL_ADDRESS },
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT.mapsQuery)}`,
+};
 ---
 
 <!doctype html>
 <html lang={lang === 'ne' ? 'ne' : 'en'}>
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={alternates.en} />
+    <link rel="alternate" hreflang="ne" href={alternates.ne} />
+    <link rel="alternate" hreflang="x-default" href={alternates.en} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={shareImageUrl} />
+    <meta property="og:locale" content={lang === 'ne' ? 'ne_NP' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'ne' ? 'en_US' : 'ne_NP'} />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Load the heading font without blocking first paint; text shows in Georgia until it arrives. -->
+    <link rel="preload" as="style" href={FONT_CSS} onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href={FONT_CSS} /></noscript>
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <link rel="canonical" href={Astro.url.href} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <title>{title} · Bethesda Baptist Church</title>
+    {churchSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(churchSchema)} />}
   </head>
   <body class="flex min-h-screen flex-col bg-white text-stone-800">
     <Nav lang={lang} currentPath={Astro.url.pathname} />

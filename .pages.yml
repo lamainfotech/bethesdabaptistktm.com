@@ -13,8 +13,8 @@ content:
     path: src/content/home/en.md
     format: yaml-frontmatter
     fields:
-      - { name: title, label: Browser tab title, type: string, required: true }
-      - { name: description, label: Search engine description, type: text, required: true }
+      - { name: title, label: "Google title (shown after the church name, keep under ~60 characters)", type: string, required: true }
+      - { name: description, label: "Google description (keep under ~160 characters)", type: text, required: true }
       - { name: heroTitle, label: Banner heading, type: string, required: true }
       - { name: heroText, label: Banner text, type: text, required: true }
       - { name: heroImage, label: Banner photo, type: image, required: true }
@@ -46,8 +46,8 @@ content:
     path: src/content/home/ne.md
     format: yaml-frontmatter
     fields:
-      - { name: title, label: Browser tab title, type: string, required: true }
-      - { name: description, label: Search engine description, type: text, required: true }
+      - { name: title, label: "Google title (shown after the church name, keep under ~60 characters)", type: string, required: true }
+      - { name: description, label: "Google description (keep under ~160 characters)", type: text, required: true }
       - { name: heroTitle, label: Banner heading, type: string, required: true }
       - { name: heroText, label: Banner text, type: text, required: true }
       - { name: heroImage, label: Banner photo, type: image, required: true }

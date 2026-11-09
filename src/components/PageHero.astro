@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  title: string;
+  image: ImageMetadata;
+  alt: string;
+  eyebrow?: string;
+  intro?: string;
+  imagePosition?: string;
+}
+
+const { title, image, alt, eyebrow, intro, imagePosition } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden text-white">
+  <Image
+    src={image}
+    alt={alt}
+    class="absolute inset-0 -z-10 h-full w-full object-cover"
+    style={imagePosition ? `object-position: ${imagePosition}` : undefined}
+    widths={[480, 828, 1080, 1600]}
+    sizes="100vw"
+    quality={55}
+  />
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-brand-950/90 via-brand-950/70 to-stone-900/50"></div>
+  <div class="mx-auto max-w-3xl px-4 py-20 text-center sm:py-24">
+    {eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">{eyebrow}</p>}
+    <h1 class="mt-2 text-4xl font-bold sm:text-5xl">{title}</h1>
+    {intro && <p class="mx-auto mt-4 max-w-xl text-lg text-stone-200">{intro}</p>}
+  </div>
+</section>

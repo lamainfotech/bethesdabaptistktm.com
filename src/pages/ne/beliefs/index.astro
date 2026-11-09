@@ -1,35 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import { getEntry, render } from 'astro:content';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import TranslationNotice from '../../../components/TranslationNotice.astro';
-import bannerImage from '../../../assets/images/open-bible.jpg';
-
-const entry = await getEntry('faith', 'ne');
-const { Content } = await render(entry!);
+import DocumentPage from '../../../components/pages/DocumentPage.astro';
 ---
 
-<BaseLayout
-  lang="ne"
-  title="विश्वासको वक्तव्य"
-  description="बेथेस्दा ब्याप्टिष्ट चर्चको विश्वासको वक्तव्य।"
->
-  <section class="relative isolate overflow-hidden py-16 text-center text-white">
-    <Image
-      src={bannerImage}
-      alt="खुला बाइबल"
-      class="absolute inset-0 -z-10 h-full w-full object-cover"
-      widths={[640, 1600]}
-      sizes="100vw"
-    />
-    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-stone-900/85 via-stone-900/65 to-stone-900/40"></div>
-    <h1 class="text-3xl font-bold sm:text-4xl">विश्वासको वक्तव्य</h1>
-  </section>
-
-  <section class="mx-auto max-w-3xl px-4 py-14">
-    <div class="prose prose-stone mt-6 max-w-none">
-      <Content />
-    </div>
-    {entry?.data.translationPending && <TranslationNotice enPath="/beliefs/" />}
-  </section>
-</BaseLayout>
+<DocumentPage lang="ne" doc="faith" />

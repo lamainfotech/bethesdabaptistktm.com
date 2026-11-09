@@ -5,4 +5,5 @@ meetingTime: Saturdays, 10:00 AM
 leader: To be announced
 placeholder: true
 order: 4
+image: ../../assets/images/ministry-children.jpg
 ---

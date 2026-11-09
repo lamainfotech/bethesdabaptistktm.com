@@ -1,6 +1,9 @@
 ---
-import { CONTACT } from '../lib/site';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getEntry } from 'astro:content';
+import { CONTACT, NAV, ABOUT_SUBNAV } from '../lib/site';
 import { useTranslations, type Lang } from '../lib/ui';
+import Logo from './Logo.astro';
 
 interface Props {
   lang: Lang;
@@ -9,20 +12,55 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+const home = (await getEntry('home', lang))!.data;
+
+const href = (path: string) => getRelativeLocaleUrl(lang, path === '/' ? '' : path.replace(/^\//, ''));
+const links = [...ABOUT_SUBNAV, ...NAV.filter((item) => item.path !== null && item.path !== '/')] as {
+  key: keyof typeof t.nav;
+  path: string;
+}[];
 ---
 
-<footer class="border-t border-stone-200 bg-stone-50">
-  <div class="mx-auto max-w-5xl px-4 py-10 text-sm text-stone-600">
-    <p class="font-semibold text-stone-900">Bethesda Baptist Church</p>
-    <p>{t.common.footerTagline}</p>
-    <p class="mt-3">{CONTACT.address}</p>
-    <p>
-      {CONTACT.phones.join(' / ')} &middot;
-      <a href={`mailto:${CONTACT.email}`} class="underline hover:text-stone-900">{CONTACT.email}</a>
-    </p>
-    <p class="mt-6 text-xs text-stone-400">
+<footer class="bg-brand-950 text-stone-300">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 text-sm sm:grid-cols-2 lg:grid-cols-4">
+    <div class="lg:col-span-1">
+      <Logo lang={lang} href={href('/')} tone="light" />
+      <p class="mt-4 max-w-xs text-stone-400">{t.common.footerTagline}</p>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-base font-semibold text-white">{t.common.serviceTimes}</h2>
+      <p class="mt-3">{home.serviceTimes}</p>
+      <a href={href('/visit/')} class="mt-2 inline-block text-gold-300 hover:text-gold-400">
+        {t.common.allServiceTimes} &rarr;
+      </a>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-base font-semibold text-white">{t.common.contactUs}</h2>
+      <p class="mt-3">{CONTACT.address}</p>
+      <ul class="mt-2 space-y-1">
+        {CONTACT.phones.map((phone) => (
+          <li><a href={`tel:${phone.replace(/\s|-/g, '')}`} class="hover:text-white">{phone}</a></li>
+        ))}
+        <li><a href={`mailto:${CONTACT.email}`} class="break-all hover:text-white">{CONTACT.email}</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="font-serif text-base font-semibold text-white">{t.common.explore}</h2>
+      <ul class="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 lg:grid-cols-1">
+        {links.map((item) => (
+          <li><a href={href(item.path)} class="hover:text-white">{t.nav[item.key]}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <p class="mx-auto max-w-6xl px-4 py-5 text-xs text-stone-400">
       &copy; {year} Bethesda Baptist Church, Kathmandu. Web design by{' '}
-      <a href="https://khagen.me/" target="_blank" rel="noopener noreferrer" class="underline hover:text-stone-600">Khagen</a>.
+      <a href="https://khagen.me/" target="_blank" rel="noopener noreferrer" class="underline hover:text-white">Khagen</a>.
     </p>
   </div>
 </footer>

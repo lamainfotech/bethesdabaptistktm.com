@@ -3,6 +3,22 @@
 
 @theme {
   --font-serif: "Fraunces", ui-serif, Georgia, serif;
+
+  /* Brand: deep crimson (Nepal's national colour), with warm gold and cream accents. */
+  --color-brand-50: #fbf4f4;
+  --color-brand-100: #f6e4e5;
+  --color-brand-200: #ecc6c8;
+  --color-brand-300: #dc9a9e;
+  --color-brand-400: #c86a71;
+  --color-brand-500: #b2434c;
+  --color-brand-600: #9b2f3a;
+  --color-brand-700: #82242f;
+  --color-brand-800: #6b1f29;
+  --color-brand-900: #551b23;
+  --color-brand-950: #2e0a0f;
+  --color-gold-300: #ecc77a;
+  --color-gold-400: #d9a441;
+  --color-cream: #faf6f0;
 }
 
 h1,
@@ -17,6 +33,11 @@ html {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-stone-900) 85%, transparent);
+  background: var(--color-brand-700);
   color: white;
+}
+
+/* Letter-spacing breaks apart Devanagari conjuncts, so drop it on Nepali pages. */
+:lang(ne) [class*="tracking-"] {
+  letter-spacing: normal;
 }

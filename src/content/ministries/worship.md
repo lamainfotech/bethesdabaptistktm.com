@@ -5,4 +5,5 @@ meetingTime: Saturdays, 10:00 AM
 leader: Pastor Hari KC
 placeholder: true
 order: 1
+image: ../../assets/images/ministry-worship.jpg
 ---

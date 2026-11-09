@@ -1,0 +1,29 @@
+---
+import { SITE_NAME, SITE_NAME_NE } from '../lib/site';
+import type { Lang } from '../lib/ui';
+
+interface Props {
+  lang: Lang;
+  /** Omit inside interactive elements (e.g. the mobile menu toggle) to render without a link. */
+  href?: string;
+  tone?: 'dark' | 'light';
+}
+
+const { lang, href, tone = 'dark' } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+
+<Tag href={href} class="flex items-center gap-3">
+  <svg class="h-10 w-10 shrink-0" viewBox="0 0 64 64" aria-hidden="true">
+    <rect width="64" height="64" rx="14" class={tone === 'dark' ? 'fill-brand-700' : 'fill-white/10'} />
+    <path d="M28 12h8v12h12v8H36v20h-8V32H16v-8h12z" class={tone === 'dark' ? 'fill-white' : 'fill-gold-300'} />
+  </svg>
+  <span class="leading-tight">
+    <span class:list={['block font-serif text-lg font-semibold', tone === 'dark' ? 'text-stone-900' : 'text-white']}>
+      {lang === 'ne' ? SITE_NAME_NE : SITE_NAME}
+    </span>
+    <span class:list={['block text-xs tracking-wide', tone === 'dark' ? 'text-stone-500' : 'text-stone-300']}>
+      {lang === 'ne' ? 'धुम्बाराही, काठमाडौं' : 'Dhumbarahi, Kathmandu'}
+    </span>
+  </span>
+</Tag>

@@ -9,6 +9,15 @@ export const CONTACT = {
   mapsQuery: 'Dhumbarahi-4, Kathmandu, Nepal',
 };
 
+// Structured form of CONTACT.address, used for search-engine schema markup.
+export const POSTAL_ADDRESS = {
+  streetAddress: 'Dhumbarahi-4',
+  addressLocality: 'Kathmandu',
+  addressRegion: 'Bagmati Province',
+  postalCode: '44602',
+  addressCountry: 'NP',
+};
+
 export type NavKey =
   | 'home'
   | 'about'

@@ -5,4 +5,5 @@ meetingTime: Saturdays, 9:00 AM
 leader: To be announced
 placeholder: true
 order: 2
+image: ../../assets/images/ministry-discipleship.jpg
 ---

@@ -1,0 +1,116 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import IconBadge from '../IconBadge.astro';
+import Icon from '../Icon.astro';
+import TranslationNotice from '../TranslationNotice.astro';
+import { localHref } from '../../lib/links';
+import type { Lang } from '../../lib/ui';
+import heroImage from '../../assets/images/open-bible.jpg';
+
+interface Props {
+  lang: Lang;
+  /** Which document this page shows: the Statement of Faith or the Church Covenant. */
+  doc: 'faith' | 'covenant';
+}
+
+const { lang, doc } = Astro.props;
+const entry = (await getEntry(doc, lang))!;
+const { Content, headings } = await render(entry);
+const sections = headings.filter((h) => h.depth === 2);
+
+const copy = {
+  en: {
+    faith: {
+      title: 'Statement of Faith',
+      description: 'The Statement of Faith of Bethesda Baptist Church, Kathmandu.',
+      intro: 'What we believe about Scripture, God, salvation, and the church — the convictions that shape our life together.',
+    },
+    covenant: {
+      title: 'Church Covenant',
+      description: 'The Church Covenant of Bethesda Baptist Church, Kathmandu.',
+      intro: 'Our shared commitments to God and to one another as a congregation.',
+    },
+    eyebrow: 'What we believe',
+    heroAlt: 'An open Bible',
+    contents: 'Contents',
+    alsoRead: 'Also read',
+  },
+  ne: {
+    faith: {
+      title: 'विश्वासको वक्तव्य',
+      description: 'बेथेस्दा ब्याप्टिष्ट चर्चको विश्वासको वक्तव्य।',
+      intro: undefined,
+    },
+    covenant: {
+      title: 'चर्च करार',
+      description: 'बेथेस्दा ब्याप्टिष्ट चर्चको चर्च करार।',
+      intro: undefined,
+    },
+    eyebrow: 'हाम्रो विश्वास',
+    heroAlt: 'खुला बाइबल',
+    contents: 'विषयसूची',
+    alsoRead: 'यो पनि पढ्नुहोस्',
+  },
+}[lang];
+
+const page = copy[doc];
+const other = doc === 'faith' ? 'covenant' : 'faith';
+const otherHref = localHref(lang, other === 'faith' ? '/beliefs/' : '/covenant/');
+const enPath = doc === 'faith' ? '/beliefs/' : '/covenant/';
+---
+
+<BaseLayout lang={lang} title={page.title} description={page.description}>
+  <PageHero title={page.title} image={heroImage} alt={copy.heroAlt} eyebrow={copy.eyebrow} intro={page.intro} />
+
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:py-20">
+    <div class:list={['grid gap-12', sections.length > 0 && 'lg:grid-cols-[16rem_1fr]']}>
+      {sections.length > 0 && (
+        <aside class="hidden lg:block">
+          <nav aria-label={copy.contents} class="sticky top-28 rounded-2xl bg-cream p-5 ring-1 ring-stone-200">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">{copy.contents}</p>
+            <ol class="mt-4 space-y-1 text-sm">
+              {sections.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="block rounded-lg px-2 py-1.5 text-stone-600 transition-colors hover:bg-white hover:text-brand-700">
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </aside>
+      )}
+
+      <div class:list={['min-w-0', sections.length === 0 && 'mx-auto w-full max-w-3xl']}>
+        <article class="doc prose prose-lg prose-stone max-w-none prose-headings:scroll-mt-28 prose-h2:font-serif prose-h2:text-2xl prose-h2:font-semibold prose-a:text-brand-700 prose-em:text-stone-500">
+          <Content />
+        </article>
+        {entry.data.translationPending && <TranslationNotice enPath={enPath} />}
+
+        <a href={otherHref} class="group mt-14 flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-stone-200 transition hover:-translate-y-0.5 hover:shadow-lg hover:ring-brand-200">
+          <IconBadge name={other === 'faith' ? 'book' : 'heart'} />
+          <div class="flex-1">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">{copy.alsoRead}</p>
+            <p class="mt-1 text-lg font-semibold text-stone-900">{copy[other].title}</p>
+          </div>
+          <Icon name="arrow" class="h-5 w-5 text-brand-700 transition-transform group-hover:translate-x-1" />
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Each numbered article starts a new block, separated by a hairline. */
+  .doc :global(h2) {
+    border-top: 1px solid var(--color-stone-200);
+    padding-top: 2rem;
+  }
+  .doc :global(h2:first-child) {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 0;
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import IconBadge from '../IconBadge.astro';
+import Icon from '../Icon.astro';
+import MapEmbed from '../MapEmbed.astro';
+import { CONTACT } from '../../lib/site';
+import { mapsHref } from '../../lib/links';
+import { useTranslations, type Lang } from '../../lib/ui';
+import heroImage from '../../assets/images/hero-kathmandu.jpg';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const copy = {
+  en: {
+    title: 'Contact Us',
+    description: 'Contact Bethesda Baptist Church, Kathmandu.',
+    heroAlt: 'View over Kathmandu valley',
+    eyebrow: 'Get in touch',
+    intro: "Questions about the church, a visit, or prayer? We'd love to hear from you.",
+    call: 'Call us',
+    write: 'Send an email',
+    mapTitle: 'Map showing Bethesda Baptist Church location',
+  },
+  ne: {
+    title: 'सम्पर्क',
+    description: 'बेथेस्दा ब्याप्टिष्ट चर्चलाई सम्पर्क गर्नुहोस्।',
+    heroAlt: 'काठमाडौं उपत्यकाको दृश्य',
+    eyebrow: 'सम्पर्क गर्नुहोस्',
+    intro: undefined,
+    call: 'फोन गर्नुहोस्',
+    write: 'इमेल पठाउनुहोस्',
+    mapTitle: 'बेथेस्दा ब्याप्टिष्ट चर्चको स्थान देखाउने नक्सा',
+  },
+}[lang];
+
+const tel = (phone: string) => `tel:${phone.replace(/\s|-/g, '')}`;
+---
+
+<BaseLayout lang={lang} title={copy.title} description={copy.description}>
+  <PageHero title={copy.title} image={heroImage} alt={copy.heroAlt} eyebrow={copy.eyebrow} intro={copy.intro} />
+
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-stone-200">
+        <IconBadge name="pin" />
+        <h2 class="mt-5 text-lg font-semibold text-stone-900">{t.common.address}</h2>
+        <p class="mt-2 text-stone-700">{CONTACT.address}</p>
+        <a href={mapsHref(CONTACT.mapsQuery)} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-700 hover:text-brand-800">
+          {t.common.viewOnMap} <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+
+      <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-stone-200">
+        <IconBadge name="phone" />
+        <h2 class="mt-5 text-lg font-semibold text-stone-900">{copy.call}</h2>
+        <ul class="mt-2 space-y-1">
+          {CONTACT.phones.map((phone) => (
+            <li><a href={tel(phone)} class="text-stone-700 hover:text-brand-700">{phone}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-stone-200">
+        <IconBadge name="mail" />
+        <h2 class="mt-5 text-lg font-semibold text-stone-900">{copy.write}</h2>
+        <a href={`mailto:${CONTACT.email}`} class="mt-2 block break-all text-stone-700 hover:text-brand-700">{CONTACT.email}</a>
+        <a href={`mailto:${CONTACT.email}`} class="mt-4 inline-flex items-center gap-2 rounded-lg bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-800">
+          {t.common.email} <Icon name="arrow" class="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+
+    <MapEmbed title={copy.mapTitle} class="mt-10 h-[28rem]" />
+  </section>
+</BaseLayout>

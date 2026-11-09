@@ -94,14 +94,22 @@ These live in `src/content/faith/en.md` and `src/content/covenant/en.md`
 (Nepali versions are `ne.md` in the same folders). Edit the plain text below
 the `---` block the same way as any other file.
 
-### Edit general page text (About, Visit, Giving, Contact, Home)
+### Edit the home page
 
-These pages live in `src/pages/` (e.g. `src/pages/about/index.astro`,
-`src/pages/giving/index.astro`). They look a bit more technical — mixed in
-with the text you'll see `<p>`, `<div>`, `<a href="...">` etc. Only edit the
-text between the tags, never the tags themselves (the words inside `< >`
-brackets). If a page looks too unfamiliar to touch confidently, it's safer
-to ask for help than to guess.
+The home page text and photos live in `src/content/home/en.md` (English)
+and `src/content/home/ne.md` (Nepali). In Pages CMS they appear as **Home
+page (English)** and **Home page (Nepali)**. Photos are picked from
+`src/assets/images/`. Ministry photos are set the same way, through the
+`image` field of each ministry file.
+
+### Edit general page text (About, Visit, Giving, Contact, Ministries intro)
+
+The text for these pages lives in `src/components/pages/` (e.g.
+`AboutPage.astro`, `GivingPage.astro`). Each file has an `en:` block and an
+`ne:` block near the top holding all the English and Nepali wording — edit
+the text inside the quotes there, and leave everything else (the parts
+inside `< >` brackets) untouched. If a file looks too unfamiliar to touch
+confidently, it's safer to ask for help than to guess.
 
 ## If something breaks
 
