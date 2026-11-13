@@ -6,8 +6,8 @@ description: Join us for Saturday worship at Bethesda Baptist Church in
 heroTitle: Bethesda Baptist Church
 heroText: An independent Baptist congregation in Kathmandu, Nepal, gathered
   around the authority of God's Word.
-heroImage: ../../assets/images/hero-kathmandu.jpg
-heroImageAlt: View over Kathmandu valley
+heroImage: ../../assets/images/WhatsApp Image 2026-08-14 at 8.36.34 AM.jpeg
+heroImageAlt: New Bethesda Picture
 heroPrimaryButton: Plan a Visit
 heroSecondaryButton: About Us
 quote: We believe that the Bible, consisting of the Old and New Testaments, is
@@ -28,6 +28,6 @@ visitTitle: Plan Your Visit
 visitText: Whether you're new to Kathmandu or new to church, we'd love to
   welcome you this Saturday.
 visitButton: Service Times & Location
-visitImage: ../../assets/images/WhatsApp Image 2026-08-14 at 8.36.35 AM.jpeg
+visitImage: ../../assets/images/Bethesda.jpeg
 visitImageAlt: Old Picture of Church
 ---
