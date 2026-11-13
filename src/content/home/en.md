@@ -3,7 +3,7 @@ title: Independent Baptist Church in Dhumbarahi, Kathmandu
 description: Join us for Saturday worship at Bethesda Baptist Church in
   Dhumbarahi-4, Kathmandu. Discover our ministries, Statement of Faith, and
   church community.
-heroTitle: Bethesda Baptist Church
+heroTitle: Bethesda Baptist Churcha
 heroText: An independent Baptist congregation in Kathmandu, Nepal, gathered
   around the authority of God's Word.
 heroImage: ../../assets/images/hero-kathmandu.jpg
