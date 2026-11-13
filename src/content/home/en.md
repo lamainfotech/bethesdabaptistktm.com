@@ -28,6 +28,6 @@ visitTitle: Plan Your Visit
 visitText: Whether you're new to Kathmandu or new to church, we'd love to
   welcome you this Saturday.
 visitButton: Service Times & Location
-visitImage: ../../assets/images/about-kathmandu.jpg
-visitImageAlt: Kathmandu cityscape
+visitImage: ../../assets/images/WhatsApp Image 2026-08-14 at 8.36.35 AM.jpeg
+visitImageAlt: Old Picture of Church
 ---
