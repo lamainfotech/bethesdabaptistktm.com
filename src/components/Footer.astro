@@ -1,7 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getEntry } from 'astro:content';
-import { CONTACT, NAV, ABOUT_SUBNAV } from '../lib/site';
+import { NAV, ABOUT_SUBNAV } from '../lib/site';
 import { useTranslations, type Lang } from '../lib/ui';
 import Logo from './Logo.astro';
 
@@ -13,6 +13,8 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
 const home = (await getEntry('home', lang))!.data;
+const contact = (await getEntry('contact', lang))!.data;
+const phones = [contact.phone1, contact.phone2].filter((phone): phone is string => Boolean(phone));
 
 const href = (path: string) => getRelativeLocaleUrl(lang, path === '/' ? '' : path.replace(/^\//, ''));
 const links = [...ABOUT_SUBNAV, ...NAV.filter((item) => item.path !== null && item.path !== '/')] as {
@@ -38,12 +40,12 @@ const links = [...ABOUT_SUBNAV, ...NAV.filter((item) => item.path !== null && it
 
     <div>
       <h2 class="font-serif text-base font-semibold text-white">{t.common.contactUs}</h2>
-      <p class="mt-3">{CONTACT.address}</p>
+      <p class="mt-3">{contact.address}</p>
       <ul class="mt-2 space-y-1">
-        {CONTACT.phones.map((phone) => (
+        {phones.map((phone) => (
           <li><a href={`tel:${phone.replace(/\s|-/g, '')}`} class="hover:text-white">{phone}</a></li>
         ))}
-        <li><a href={`mailto:${CONTACT.email}`} class="break-all hover:text-white">{CONTACT.email}</a></li>
+        {contact.email && <li><a href={`mailto:${contact.email}`} class="break-all hover:text-white">{contact.email}</a></li>}
       </ul>
     </div>
 

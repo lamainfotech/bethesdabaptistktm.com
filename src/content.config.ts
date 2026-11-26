@@ -68,6 +68,50 @@ const home = defineCollection({
     }),
 });
 
+const contact = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/contact' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    heading: z.string(),
+    introText: z.string().optional(),
+    heroAlt: z.string(),
+    eyebrow: z.string(),
+    addressLabel: z.string(),
+    mapLinkLabel: z.string(),
+    phoneLabel: z.string(),
+    emailLabel: z.string(),
+    emailButtonLabel: z.string(),
+    mapTitle: z.string(),
+    address: z.string(),
+    phone1: z.string().optional(),
+    phone2: z.string().optional(),
+    email: z.string().optional(),
+    mapEmbedUrl: z.string().optional(),
+  }),
+});
+
+const giving = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/giving' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      heading: z.string(),
+      introText: z.string().optional(),
+      heroAlt: z.string(),
+      eyebrow: z.string().optional(),
+      bankLabel: z.string(),
+      accountNameLabel: z.string(),
+      accountNumberLabel: z.string(),
+      bankName: z.string().optional(),
+      accountName: z.string().optional(),
+      accountNumber: z.string().optional(),
+      qrImage: image().optional(),
+      qrImageAlt: z.string().optional(),
+    }),
+});
+
 const sermons = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/sermons' }),
   schema: z.object({
@@ -77,4 +121,4 @@ const sermons = defineCollection({
   }),
 });
 
-export const collections = { faith, covenant, ministries, sermons, home };
+export const collections = { faith, covenant, ministries, sermons, home, contact, giving };

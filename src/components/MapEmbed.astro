@@ -5,14 +5,15 @@ import { mapsEmbedSrc } from '../lib/links';
 interface Props {
   title: string;
   class?: string;
+  embedUrl?: string;
 }
 
-const { title, class: className = 'h-80' } = Astro.props;
+const { title, class: className = 'h-80', embedUrl = mapsEmbedSrc(CONTACT.mapsQuery) } = Astro.props;
 ---
 
 <div class:list={['overflow-hidden rounded-2xl bg-stone-100 shadow-sm ring-1 ring-stone-200', className]}>
   <iframe
-    src={mapsEmbedSrc(CONTACT.mapsQuery)}
+    src={embedUrl}
     class="h-full w-full"
     style="border:0"
     loading="lazy"
