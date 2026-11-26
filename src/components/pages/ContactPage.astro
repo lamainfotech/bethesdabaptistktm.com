@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../PageHero.astro';
 import IconBadge from '../IconBadge.astro';
 import Icon from '../Icon.astro';
-import { getEntry, render } from 'astro:content';
+import { getEntry } from 'astro:content';
 import MapEmbed from '../MapEmbed.astro';
 import { mapsHref } from '../../lib/links';
 import type { Lang } from '../../lib/ui';
@@ -16,7 +16,6 @@ interface Props {
 const { lang } = Astro.props;
 const entry = (await getEntry('contact', lang))!;
 const page = entry.data;
-const { Content } = await render(entry);
 const phones = [page.phone1, page.phone2].filter((phone): phone is string => Boolean(phone));
 
 const tel = (phone: string) => `tel:${phone.replace(/\s|-/g, '')}`;
@@ -62,7 +61,6 @@ const tel = (phone: string) => `tel:${phone.replace(/\s|-/g, '')}`;
       </div>
     </div>
 
-    {entry.body?.trim() && <div class="contact-content mt-10"><Content /></div>}
     {page.mapEmbedUrl && (
       <MapEmbed
         title={page.mapTitle}

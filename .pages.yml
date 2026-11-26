@@ -96,7 +96,6 @@ content:
       - { name: phone2, label: Phone number 2, type: string }
       - { name: email, label: Contact email, type: string }
       - { name: mapEmbedUrl, label: Map embed URL, type: string }
-      - { name: body, label: Additional contact details, type: rich-text, options: { format: markdown, media: false } }
 
   - name: contact-ne
     label: Contact (Nepali)
@@ -121,7 +120,6 @@ content:
       - { name: phone2, label: Phone number 2, type: string }
       - { name: email, label: Contact email, type: string }
       - { name: mapEmbedUrl, label: Map embed URL, type: string }
-      - { name: body, label: Additional contact details, type: rich-text, options: { format: markdown, media: false } }
 
   - name: giving-en
     label: Giving (English)
@@ -135,6 +133,16 @@ content:
       - { name: introText, label: Intro text, type: text }
       - { name: heroAlt, label: Hero photo description (for screen readers), type: string, required: true }
       - { name: eyebrow, label: Hero eyebrow, type: string }
+      - { name: quote, label: Covenant quote, type: text }
+      - { name: quoteSource, label: Quote source, type: string }
+      - { name: waysEyebrow, label: Ways section eyebrow, type: string }
+      - { name: waysHeading, label: Ways section heading, type: string, required: true }
+      - { name: way1Title, label: Giving option 1 title, type: string, required: true }
+      - { name: way1Text, label: Giving option 1 text, type: text, required: true }
+      - { name: way2Title, label: Giving option 2 title, type: string, required: true }
+      - { name: way2Text, label: Giving option 2 text, type: text, required: true }
+      - { name: way3Title, label: Giving option 3 title, type: string, required: true }
+      - { name: way3Text, label: Giving option 3 text, type: text, required: true }
       - { name: bankLabel, label: Bank name label, type: string, required: true }
       - { name: accountNameLabel, label: Account name label, type: string, required: true }
       - { name: accountNumberLabel, label: Account number label, type: string, required: true }
@@ -143,7 +151,10 @@ content:
       - { name: accountNumber, label: Account number, type: string }
       - { name: qrImage, label: QR code / payment image, type: image }
       - { name: qrImageAlt, label: QR code image description (for screen readers), type: string }
-      - { name: body, label: Giving instructions & notes, type: rich-text, options: { format: markdown, media: false } }
+      - { name: ctaHeading, label: Giving questions heading, type: string, required: true }
+      - { name: ctaText, label: Giving questions text, type: text }
+      - { name: ctaButtonText, label: Email button text, type: string, required: true }
+      - { name: ctaEmail, label: Giving contact email, type: string, required: true }
 
   - name: giving-ne
     label: Giving (Nepali)
@@ -157,6 +168,16 @@ content:
       - { name: introText, label: Intro text, type: text }
       - { name: heroAlt, label: Hero photo description (for screen readers), type: string, required: true }
       - { name: eyebrow, label: Hero eyebrow, type: string }
+      - { name: quote, label: Covenant quote, type: text }
+      - { name: quoteSource, label: Quote source, type: string }
+      - { name: waysEyebrow, label: Ways section eyebrow, type: string }
+      - { name: waysHeading, label: Ways section heading, type: string, required: true }
+      - { name: way1Title, label: Giving option 1 title, type: string, required: true }
+      - { name: way1Text, label: Giving option 1 text, type: text, required: true }
+      - { name: way2Title, label: Giving option 2 title, type: string, required: true }
+      - { name: way2Text, label: Giving option 2 text, type: text, required: true }
+      - { name: way3Title, label: Giving option 3 title, type: string, required: true }
+      - { name: way3Text, label: Giving option 3 text, type: text, required: true }
       - { name: bankLabel, label: Bank name label, type: string, required: true }
       - { name: accountNameLabel, label: Account name label, type: string, required: true }
       - { name: accountNumberLabel, label: Account number label, type: string, required: true }
@@ -165,7 +186,10 @@ content:
       - { name: accountNumber, label: Account number, type: string }
       - { name: qrImage, label: QR code / payment image, type: image }
       - { name: qrImageAlt, label: QR code image description (for screen readers), type: string }
-      - { name: body, label: Giving instructions & notes, type: rich-text, options: { format: markdown, media: false } }
+      - { name: ctaHeading, label: Giving questions heading, type: string, required: true }
+      - { name: ctaText, label: Giving questions text, type: text }
+      - { name: ctaButtonText, label: Email button text, type: string, required: true }
+      - { name: ctaEmail, label: Giving contact email, type: string, required: true }
 
   - name: ministries
     label: Ministries

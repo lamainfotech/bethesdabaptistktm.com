@@ -1,7 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../PageHero.astro';
-import { getEntry, render } from 'astro:content';
+import SectionHeading from '../SectionHeading.astro';
+import IconBadge from '../IconBadge.astro';
+import Icon from '../Icon.astro';
+import type { IconName } from '../Icon.astro';
+import { getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import type { Lang } from '../../lib/ui';
 import heroImage from '../../assets/images/giving-praying-hands.jpg';
@@ -11,9 +15,12 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const entry = (await getEntry('giving', lang))!;
-const page = entry.data;
-const { Content } = await render(entry);
+const page = (await getEntry('giving', lang))!.data;
+const ways: { icon: IconName; title: string; text: string }[] = [
+  { icon: 'users', title: page.way1Title, text: page.way1Text },
+  { icon: 'bank', title: page.way2Title, text: page.way2Text },
+  { icon: 'globe', title: page.way3Title, text: page.way3Text },
+];
 ---
 
 <BaseLayout lang={lang} title={page.title} description={page.description}>
@@ -26,18 +33,43 @@ const { Content } = await render(entry);
     imagePosition="50% 38%"
   />
 
-  {(page.bankName || page.accountName || page.accountNumber || page.qrImage) && (
-    <section class="mx-auto max-w-6xl px-4 pt-12">
-      <div class="flex flex-col gap-8 rounded-2xl bg-white p-7 shadow-sm ring-1 ring-stone-200 sm:flex-row sm:items-center sm:justify-between">
-        <dl class="space-y-3">
-          {page.bankName && <div><dt class="font-semibold text-stone-900">{page.bankLabel}</dt><dd class="text-stone-700">{page.bankName}</dd></div>}
-          {page.accountName && <div><dt class="font-semibold text-stone-900">{page.accountNameLabel}</dt><dd class="text-stone-700">{page.accountName}</dd></div>}
-          {page.accountNumber && <div><dt class="font-semibold text-stone-900">{page.accountNumberLabel}</dt><dd class="text-stone-700">{page.accountNumber}</dd></div>}
-        </dl>
-        {page.qrImage && <Image src={page.qrImage} alt={page.qrImageAlt ?? ''} class="h-48 w-48 object-contain" />}
-      </div>
+  {page.quote && (
+    <section class="mx-auto max-w-3xl px-4 pt-20 text-center">
+      <blockquote class="font-serif text-2xl italic leading-relaxed text-stone-800">{page.quote}</blockquote>
+      {page.quoteSource && <p class="mt-5 text-sm font-medium uppercase tracking-wider text-brand-700">{page.quoteSource}</p>}
     </section>
   )}
 
-  {entry.body?.trim() && <Content />}
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <SectionHeading eyebrow={page.waysEyebrow} title={page.waysHeading} align="center" />
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {ways.map((way, i) => (
+        <div class="relative rounded-2xl bg-white p-7 shadow-sm ring-1 ring-stone-200">
+          <span class="absolute right-6 top-5 font-serif text-5xl font-bold text-brand-50" aria-hidden="true">{i + 1}</span>
+          <IconBadge name={way.icon} />
+          <h3 class="relative mt-5 text-lg font-semibold text-stone-900">{way.title}</h3>
+          <p class="relative mt-2 text-sm text-stone-600">{way.text}</p>
+          {i === 1 && (page.bankName || page.accountName || page.accountNumber) && (
+            <dl class="relative mt-4 space-y-2 text-sm">
+              {page.bankName && <div><dt class="font-semibold text-stone-900">{page.bankLabel}</dt><dd class="text-stone-600">{page.bankName}</dd></div>}
+              {page.accountName && <div><dt class="font-semibold text-stone-900">{page.accountNameLabel}</dt><dd class="text-stone-600">{page.accountName}</dd></div>}
+              {page.accountNumber && <div><dt class="font-semibold text-stone-900">{page.accountNumberLabel}</dt><dd class="text-stone-600">{page.accountNumber}</dd></div>}
+            </dl>
+          )}
+          {i === 2 && page.qrImage && <Image src={page.qrImage} alt={page.qrImageAlt ?? ''} class="relative mt-4 h-40 w-40 object-contain" />}
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 flex flex-col items-start gap-5 rounded-2xl bg-cream p-8 ring-1 ring-stone-200 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h2 class="text-xl font-semibold text-stone-900">{page.ctaHeading}</h2>
+        {page.ctaText && <p class="mt-1 text-stone-600">{page.ctaText}</p>}
+      </div>
+      <a href={`mailto:${page.ctaEmail}`} class="inline-flex shrink-0 items-center gap-2 rounded-lg bg-brand-700 px-5 py-2.5 font-medium text-white shadow-sm hover:bg-brand-800">
+        <Icon name="mail" class="h-4 w-4" />
+        {page.ctaButtonText}
+      </a>
+    </div>
+  </section>
 </BaseLayout>
