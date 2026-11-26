@@ -73,6 +73,74 @@ content:
       - { name: visitImage, label: Visit section photo, type: image, required: true }
       - { name: visitImageAlt, label: Visit section photo description (for screen readers), type: string, required: true }
 
+  - name: contact-en
+    label: Contact (English)
+    type: file
+    path: src/content/contact/en.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: "Google title (shown after the church name, keep under ~60 characters)", type: string, required: true }
+      - { name: description, label: "Google description (keep under ~160 characters)", type: text, required: true }
+      - { name: heading, label: Page heading, type: string, required: true }
+      - { name: introText, label: Intro text, type: text }
+      - { name: address, label: Church address, type: string, required: true }
+      - { name: phone1, label: Phone number 1, type: string }
+      - { name: phone2, label: Phone number 2, type: string }
+      - { name: email, label: Contact email, type: string }
+      - { name: mapEmbedUrl, label: Map embed URL, type: string }
+      - { name: body, label: Additional contact details, type: rich-text, options: { format: markdown, media: false } }
+
+  - name: contact-ne
+    label: Contact (Nepali)
+    type: file
+    path: src/content/contact/ne.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: "Google title (shown after the church name, keep under ~60 characters)", type: string, required: true }
+      - { name: description, label: "Google description (keep under ~160 characters)", type: text, required: true }
+      - { name: heading, label: Page heading, type: string, required: true }
+      - { name: introText, label: Intro text, type: text }
+      - { name: address, label: Church address, type: string, required: true }
+      - { name: phone1, label: Phone number 1, type: string }
+      - { name: phone2, label: Phone number 2, type: string }
+      - { name: email, label: Contact email, type: string }
+      - { name: mapEmbedUrl, label: Map embed URL, type: string }
+      - { name: body, label: Additional contact details, type: rich-text, options: { format: markdown, media: false } }
+
+  - name: giving-en
+    label: Giving (English)
+    type: file
+    path: src/content/giving/en.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: "Google title (shown after the church name, keep under ~60 characters)", type: string, required: true }
+      - { name: description, label: "Google description (keep under ~160 characters)", type: text, required: true }
+      - { name: heading, label: Page heading, type: string, required: true }
+      - { name: introText, label: Intro text, type: text }
+      - { name: bankName, label: Bank name, type: string }
+      - { name: accountName, label: Account holder name, type: string }
+      - { name: accountNumber, label: Account number, type: string }
+      - { name: qrImage, label: QR code / payment image, type: image }
+      - { name: qrImageAlt, label: QR code image description (for screen readers), type: string }
+      - { name: body, label: Giving instructions & notes, type: rich-text, options: { format: markdown, media: false } }
+
+  - name: giving-ne
+    label: Giving (Nepali)
+    type: file
+    path: src/content/giving/ne.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: "Google title (shown after the church name, keep under ~60 characters)", type: string, required: true }
+      - { name: description, label: "Google description (keep under ~160 characters)", type: text, required: true }
+      - { name: heading, label: Page heading, type: string, required: true }
+      - { name: introText, label: Intro text, type: text }
+      - { name: bankName, label: Bank name, type: string }
+      - { name: accountName, label: Account holder name, type: string }
+      - { name: accountNumber, label: Account number, type: string }
+      - { name: qrImage, label: QR code / payment image, type: image }
+      - { name: qrImageAlt, label: QR code image description (for screen readers), type: string }
+      - { name: body, label: Giving instructions & notes, type: rich-text, options: { format: markdown, media: false } }
+
   - name: ministries
     label: Ministries
     type: collection
@@ -110,32 +178,6 @@ content:
         options:
           format: markdown
           media: false
-
-          - name: contact-en
-    label: Contact Page (English)
-    type: file
-    path: src/content/contact/en.md
-    format: yaml-frontmatter
-    fields:
-      - { name: title, label: Page Title, type: string, required: true }
-      - { name: address, label: Church Address, type: string, required: true }
-      - { name: phone1, label: Phone Number 1, type: string }
-      - { name: phone2, label: Phone Number 2, type: string }
-      - { name: email, label: Email Address, type: string }
-      - { name: body, label: Additional Info, type: rich-text }
-
-  - name: giving-en
-    label: Giving Page (English)
-    type: file
-    path: src/content/giving/en.md
-    format: yaml-frontmatter
-    fields:
-      - { name: title, label: Page Title, type: string, required: true }
-      - { name: bankName, label: Bank Name, type: string }
-      - { name: accountName, label: Account Name, type: string }
-      - { name: accountNumber, label: Account Number, type: string }
-      - { name: qrCode, label: QR Code Image, type: image }
-      - { name: body, label: Giving Instructions, type: rich-text }
 
   - name: sermons
     label: Sermons
