@@ -37,6 +37,6 @@ We're working on an online giving option. This page will be updated once it's re
 
 ## Questions about giving?
 
-We're glad to help — send us an email and we'll get back to you.
+We're glad to help — send us an email, and we'll get back to you.
 
 [Email us](mailto:harichhetri2@gmail.com)
