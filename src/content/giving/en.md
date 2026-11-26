@@ -8,7 +8,7 @@ eyebrow: Generosity
 quote: We covenant to give cheerfully and faithfully of our time, abilities, and
   resources for the support of the ministry, the care of the needy, and the
   spread of the gospel to all nations.
-quoteSource: from our Church Covenants
+quoteSource: from our Church Covenant
 waysEyebrow: How to give
 waysHeading: Ways to Give
 way1Title: In Person
